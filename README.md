@@ -8,6 +8,11 @@ The code I used to process the velocity dataset
 ```bash
 parallel -j 5 /pub64/mattm/apps/atlas/build/atlas estimateErrors --minDeltaLL 0.1 --fasta /pub64/mattm/velocity/sequence_files/Hesperia_comma/reference/GCA_905404135.1.fasta --bam {} ::: /pub64/mattm/velocity/sequence_files/Hesperia_comma/marked_duplicates/*.bam
 ```
+2) Create GLF 
+```bash
+parallel -j 8 /pub64/mattm/apps/atlas/build/atlas GLF --bam {} --RGInfo {.}_RGInfo.json ::: /pub64/mattm/velocity/sequence_files/Hesperia_comma/marked_duplicates/*.bam
+```
+
 Workflow:
 
 -> mark duplicates, merge overlapping reads, calculate coverage, estimate errors, glf
