@@ -119,4 +119,4 @@ fi
 
 done
 
-echo -e "\nAll samples processed\!"
+echo -e "\nAll samples processed!"
