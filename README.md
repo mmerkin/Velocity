@@ -18,6 +18,14 @@ echo -e "E3modc\tpaired\t151" > AH_modc_RGS.txt
 ```bash
 parallel -j 10 /pub64/mattm/apps/atlas/build/atlas mergeOverlappingReads --bam {} --readGroupSettings AH_modc_RGS.txt ::: /pub64/mattm/velocity/sequence_files/Aphantopus_hyperantus/modc_realign/*.bam
 ```
+5.5. Move files to a new directory and change their names
+```bash
+mv modc_realn/*realn_merged.bam* modc_merged
+cd modc_merged
+# Requires perl: cpan conda environment
+rename s/realn_merged/final/ AH*
+```
+
 6) Calculate coverage with this script
 7) Downsample modern data based on coverage
 8) Estimate errors
