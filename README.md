@@ -27,7 +27,8 @@ parallel -j 10 /pub64/mattm/apps/atlas/build/atlas mergeOverlappingReads --bam {
 parallel -j 10 /pub64/mattm/apps/atlas/build/atlas estimateErrors --minDeltaLL 0.1 --Npsi 0 \
 --fasta /pub64/mattm/velocity/sequence_files/Hesperia_comma/reference/GCA_905404135.1.fasta --bam {} \
 ::: /pub64/mattm/velocity/sequence_files/Hesperia_comma/marked_duplicates/*.bam
-
+```
+```bash
 #Museum samples (calculates PMD)
 
 parallel -j 10 /pub64/mattm/apps/atlas/build/atlas estimateErrors --minDeltaLL 0.1  \
