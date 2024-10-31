@@ -54,3 +54,11 @@ parallel -j 8 /pub64/mattm/apps/atlas/build/atlas GLF --bam {} --RGInfo {.}_RGIn
 ## Issues:
 
 Indel realignment fails on Z chromosome of *Hesperia comma*, but *Aphantopus hyperantus* works fine
+
+Solution: *H. comma* realignment works after remapping one individual. I should start over and remap every individual following the removal of relevant contigs (W chromosome, mtDNA, unplaced contigs)
+```bash
+#exclude_contigs.txt created using grep ">" Hc_genome.fa and copying relevnat contigs to a text file (without the '>')
+seqkit grep -v -n -f exclude_contigs.fa Hc_genome.fa > Hc_genome_noW.fa
+
+bwa-mem2 mem -t 32 Hc_genome_noW.fa HC-19-2016-21_L007.veladapt.clean_R1.fastq.gz HC-19-2016-21_L007.veladapt.clean_R2.fastq.gz > "HC-19-2016-21_L007.raw.bam"
+```
