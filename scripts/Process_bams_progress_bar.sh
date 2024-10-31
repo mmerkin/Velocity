@@ -82,9 +82,9 @@ if $add_RG; then
   tasks_in_total=$((tasks_in_total + 1))
   update_progress
 # filter out reads based on flags, eg unmapped/secondary using different inputs depending on whether RGs have been added
-  samtools view -@ 32 -b -f 3 -F 3852 "$output/${filetag}.RG.bam" -o "$output/${filetag}.filtered.bam"
+  samtools view -@ 32 -b -f 3 -F 2828 -q 20 "$output/${filetag}.RG.bam" -o "$output/${filetag}.filtered.bam"
 else
-  samtools view -@ 32 -b -f 3 -F 3852 $file -o "$output/${filetag}.filtered.bam"
+  samtools view -@ 32 -b -f 3 -F 2828 -q 20 $file -o "$output/${filetag}.filtered.bam"
 fi
 
 
