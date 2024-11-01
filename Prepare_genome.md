@@ -6,7 +6,7 @@
   ```bash
   grep ">" GCA_902806685.2_iAphHyp1.2_genomic.fna | sed 's/>//'
   ```
-  3) Copy and paste contigs to be exlcuded (anything other than an autosome or Z) to a new text file, removing the initial ">"
+  3) Copy and paste contigs to be exlcuded (anything other than an autosome or Z) to a new text file
   4) Use seqkit (mem2 environment) to remove these contigs
   ```bash
   seqkit grep -v -n -f Ahyperantus_excluded_contigs.txt GCA_902806685.2_iAphHyp1.2_genomic.fna > Ahyperantus_genome.fa
