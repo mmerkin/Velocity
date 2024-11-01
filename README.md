@@ -32,7 +32,7 @@ rename s/realn_merged/final/ AH*
 
 8.1. Modern samples
 ```bash
-parallel -j 10 /pub64/mattm/apps/atlas/build/atlas estimateErrors --minDeltaLL 0.1 --Npsi 0 \
+parallel -j 10 /pub64/mattm/apps/atlas/build/atlas estimateErrors --minDeltaLL 0.1 --NPsi 0 \
 --fasta /pub64/mattm/velocity/sequence_files/Hesperia_comma/reference/GCA_905404135.1.fasta --bam {} \
 ::: /pub64/mattm/velocity/sequence_files/Hesperia_comma/marked_duplicates/*.bam
 ```
