@@ -4,7 +4,7 @@
   1) Download genome from ncbi
   2) Create a list of all contigs in the genome
   ```bash
-  grep ">" GCA_902806685.2_iAphHyp1.2_genomic.fna
+  grep ">" GCA_902806685.2_iAphHyp1.2_genomic.fna | sed 's/>//'
   ```
   3) Copy and paste contigs to be exlcuded (anything other than an autosome or Z) to a new text file, removing the initial ">"
   4) Use seqkit (mem2 environment) to remove these contigs
