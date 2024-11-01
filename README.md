@@ -4,7 +4,7 @@ The code I used to process the velocity dataset
 
 ## Steps:
 
-1) Process the reference genome, as exolained here
+1) Process the reference genome, as explained here
 2) Map illumina reads to the reference using this script
 3) Realign indels using this script
 4) Create info file for each read group
