@@ -4,12 +4,9 @@ The code I used to process the velocity dataset
 
 ## Steps:
 
-1) Run preprocessing script
-2) Index reference file 
-```bash
-java -jar ~/apps/picard/build/libs/picard.jar CreateSequenceDictionary -R GCA_905404135.1.fasta -O GCA_905404135.1.dict
-```
-3) Run indel realignment script
+1) Process the reference genome, as exolained here
+2) Map illumina reads to the reference using this script
+3) Realign indels using this script
 4) Create info file for each read group
 ```bash
 echo -e "E3modc\tpaired\t151" > AH_modc_RGS.txt
