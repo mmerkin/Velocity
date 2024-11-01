@@ -2,7 +2,17 @@
 The code I used to process the velocity dataset
 
 
-## Steps:
+## Initial processing:
+
+Before any analysis can begin, the reads must be mapped and processed to create suitable genotype liklihood files and vcfs using the following instructions:
+1) The reference genome is downloaded, filtered to remove the W chromosome, mitochondria and unplaced scaffolds; indexed for the alignment tool and a dictionary is created for use by GATK, as explained in Prepare_genome.md
+2) Sequencing read files that were trimmed using Remove_adaptors.sh are mapped to the indexed reference with Map_reads.sh
+3) Since alignment tools can often do a poor job of mapping indels, which in turn affects the position of SNPs found on the same read, an additional local realignment step is performed with Indel_realignment.sh
+4) Atlas is used to merge overlapping reads to prevent them from being counted twice, as explained by Merge_reads.md
+5) Modern samples are downsampled, as explained here (work in progress)
+6) The alignment files are recalibrated to account for inaccuracies in the base quality scores and post-mortem damage in the museum samples
+7) Genotype-likelihood (GLF) and variant-call format (vcf) files are created 
+
 
 1) Process the reference genome, as explained here
 2) Map illumina reads to the reference using this script
