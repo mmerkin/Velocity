@@ -16,11 +16,10 @@ Before any analysis can begin, the reads must be mapped and processed to create 
 
 To do:
 
-Add log file creation steps to each script
-Add catch to mapping script to remove lane number where relevant 
-Create missing github files based on below information and add links to README
-
-
+-Add log file creation steps to each script
+-Add catch to mapping script to remove lane number where relevant 
+-Create missing github files based on below information and add links to README
+-Create riparian plot for blue species with GENESPACE
 
 ```bash
 echo -e "E3modc\tpaired\t151" > AH_modc_RGS.txt
