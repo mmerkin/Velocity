@@ -14,10 +14,14 @@ Before any analysis can begin, the reads must be mapped and processed to create 
 7) Genotype-likelihood (GLF) and variant-call format (vcf) files are created 
 
 
-1) Process the reference genome, as explained here
-2) Map illumina reads to the reference using this script
-3) Realign indels using this script
-4) Create info file for each read group
+To do:
+
+Add log file creation steps to each script
+Add catch to mapping script to remove lane number where relevant 
+Create missing github files based on below information and add links to README
+
+
+
 ```bash
 echo -e "E3modc\tpaired\t151" > AH_modc_RGS.txt
 ```
