@@ -13,6 +13,8 @@ Before any analysis can begin, the reads must be mapped and processed to create 
 6) The alignment files are recalibrated to account for inaccuracies in the base quality scores and post-mortem damage in the museum samples
 7) Genotype-likelihood (GLF) and variant-call format (vcf) files are created 
 
+![image](https://github.com/user-attachments/assets/4641facb-1708-46b5-bad8-267dd14cefa5)
+
 
 To do:
 
