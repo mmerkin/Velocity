@@ -15,7 +15,8 @@ Before any analysis can begin, the reads must be mapped and processed. The ratio
 8) Genotype-likelihood (GLF) and variant-call format (vcf) files are created
 
 ![image](https://github.com/user-attachments/assets/7cb1bbc5-1084-4821-b991-ce9bcb755b81)
-Figure 1. Slide from an illumina presentation explaining how duplicate reads can occur. Velocity data were sequenced on a patterned flow cell.
+
+Figure 1. Slide from an illumina presentation explaining how duplicate reads can occur. Velocity data were sequenced on a patterned flow cell (HiSeq3000 or 4000), so have ExAmp (clustering) duplicates instead of optical duplicates. During the pipeline, any reads that are mapped to the same position and direction are removed (PCR and ExAmp), but sister duplicates remain. 
 
 ![image](https://github.com/user-attachments/assets/4641facb-1708-46b5-bad8-267dd14cefa5)
 
