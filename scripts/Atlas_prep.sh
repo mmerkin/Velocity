@@ -23,6 +23,6 @@ $ATLAS mergeOverlappingReads \
 --mergingMethod highestQuality \
 --bam "${datapath}/${filetag}_softClippedBasesRemoved.bam"
 
-cp "${datapath}/${filetag}_merged.bam" "$output/${filetag}_final.bam"
+cp "${datapath}/${filetag}_softClippedBasesRemoved_merged.bam" "$output/${filetag}_final.bam"
 
 done
