@@ -9,10 +9,10 @@ Before any analysis can begin, the reads must be mapped and processed. The ratio
 2) Sequencing read files are trimmed to remove adaptor sequences and then mapped to the reference genome.
 3) Read group information is added to specify the sequencing run of each individual. This is particularly important for species such as the chalk hill blue, where modern core samples were sequenced on two different flow cells, as there can be biases inherent to specific runs. Each alignment file is then filtered to only keep paired reads and those that are mapped in a proper pair, whilst excluding those where the read or its mate is unmapped, the read is in a secondary or supplementary alignment, the read has failed vendor quality checks or the read has a mapping quality score below 20 (99% chance of being accurate). Afterwards, a mate score tag is added and any duplicates are removed (Figure 1), keeping the reads with the highest mate score.
 4) Genome alignment tools often do a poor job at aligning indels (Figure 2), so GATK is used to perform a local realignment. 
-5) Atlas is used to merge overlapping reads to prevent them from being counted twice, as explained by Merge_reads.md
-6) Modern samples are downsampled, as explained here (work in progress)
-7) The alignment files are recalibrated to account for inaccuracies in the base quality scores and post-mortem damage in the museum samples.
-8) Genotype-likelihood (GLF) and variant-call format (vcf) files are created
+5) Atlas is used to further process the reads by removing soft clipped bases, where part of the read does not align to the reference; these can be useful for detecting indels, but we only want to look at SNPS, so soft-clipping will just increase the chance of a misalignment. Additionally, overlapping read ends are merged to prevent them from being counted twice.
+6) Super low coverage results in overestimations for genome diversity, so the modern samples will be downsampled to match the lower coverage of the museum samples. This step is still a work in progress.
+7) Sequencing machines produce base quality scores as a probability of each base call being incorrect (eg a score of 40 means the base has a 1 in 10000 chance of being incorrect ie a 99.99% chance of being correct). However, these are often really inaccurate, so must be recalibrated by atlas before genotype likelihood files can be generated, which rely heavily on quality scores. Additionally, the same command corrects for post-mortem damage (Figure 3) in the museum samples. This is the rate-limiting step as it can take up to 17 hours to run for a single sample, which still amounts to days if multiple samples are run at the same time (all the other steps only take a few hours at most)
+8) Finally, the alignments (bam files) produced in step #6 and the recalibration parameters from step #7 (json file) can be used to generate the final genotype likelihood files which can either be analysed directly or used to call variants to create a vcf file for downstream analysis
 
 ![image](https://github.com/user-attachments/assets/7cb1bbc5-1084-4821-b991-ce9bcb755b81)
 
@@ -36,16 +36,6 @@ To do:
 -Create riparian plot for blue species with GENESPACE
 
 ```bash
-echo -e "E3modc\tpaired\t151" > AH_modc_RGS.txt
-```
-5) Merge overlapping reads
-```bash
-parallel -j 10 /pub64/mattm/apps/atlas/build/atlas mergeOverlappingReads --bam {} --readGroupSettings AH_modc_RGS.txt ::: /pub64/mattm/velocity/sequence_files/Aphantopus_hyperantus/modc_realign/*.bam
-```
-5.5. Move files to a new directory and change their names
-```bash
-mv modc_realn/*realn_merged.bam* modc_merged
-cd modc_merged
 # Requires perl: cpan conda environment
 rename s/realn_merged/final/ AH*
 ```
