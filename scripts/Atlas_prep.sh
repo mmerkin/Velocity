@@ -15,6 +15,7 @@ echo -e "readGroup\tseqType\tseqCycles\n${readGroup}\tpaired\t${seqCycles}" > "$
 for file in "$datapath"/*realn.bam; do 
 filename=${file##*/}
 filetag=$(basename "$filename" ".bam")
+reduced_filetag=$(basename "$filename" ".realn.bam")
 
 $ATLAS trimSoftClips --bam $file
 
@@ -23,6 +24,6 @@ $ATLAS mergeOverlappingReads \
 --mergingMethod highestQuality \
 --bam "${datapath}/${filetag}_softClippedBasesRemoved.bam"
 
-cp "${datapath}/${filetag}_softClippedBasesRemoved_merged.bam" "$output/${filetag}_final.bam"
+cp "${datapath}/${filetag}_softClippedBasesRemoved_merged.bam" "$output/${reduced_filetag}_final.bam"
 
 done
