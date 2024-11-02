@@ -23,7 +23,7 @@ Figure 1. Slide from an illumina presentation explaining how duplicate reads can
 
 Figure 2. GATK explanation of why indel realignment is necessary, which occurs due to bwa providing a larger penalty to gaps than mismatches ([link](https://qcb.ucla.edu/wp-content/uploads/sites/14/2016/03/GATKwr12-3-IndelRealignment.pdf)). This is not usually a problem as downstream variant callers will usually negate this effect, eg haploype-aware variant callers (Freebayes) will use the sequence information rather than the alignment. However, the atlas genotype likelihood files will be incorrect unless a local realignment is performed around indels.
 
-![image](https://github.com/user-attachments/assets/c567476f-2530-4bf9-94bc-2d29c26ac19c)
+![image](https://github.com/user-attachments/assets/912da626-3e0a-4159-838e-581dfa76e5c3)
 
 Figure 3. An overview of how post-mortem deamination can affect base calls. A) aDNA contains fragmented DNA with overhanging ends, where the unpaired cytosine residues are susceptible to a deamination reaction that will cause them to sponatenously convert to uracil. B) During library preparation, T4 DNA polymerase is added to create blunt ends for adaptor ligation, which has 5'-3' polymerase activity and 3'-5' exonuclease activity. This means that 3' overhangs are degraded and 5' overhangs are filled in, pairing any U bases with an A. Subsequent rounds of PCR amplification then replace the U with a T. C) As a result, the 5' ends of sequencing reads will contain many C-to-T substitutions, whilst the 3' end of the complementary strand will have G-to-A substitutions, with the number of each decreasing exponentially from the fragment ends. Therefore, atlas corrects for these substituions using a model of exponential decay. 
 
