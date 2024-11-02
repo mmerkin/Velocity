@@ -1,17 +1,21 @@
 # Velocity
-The code I used to process the velocity dataset
 
+A repository of all the scripts and code I used to complete the velocity PHD project. Explainations for each step are given below.
 
 ## Initial processing:
 
-Before any analysis can begin, the reads must be mapped and processed to create suitable genotype liklihood files and vcfs using the following instructions:
-1) The reference genome is downloaded, filtered to remove the W chromosome, mitochondria and unplaced scaffolds; indexed for the alignment tool and a dictionary is created for use by GATK, as explained in Prepare_genome.md
-2) Sequencing read files that were trimmed using Remove_adaptors.sh are mapped to the indexed reference with Map_reads.sh
-3) Since alignment tools can often do a poor job of mapping indels, which in turn affects the position of SNPs found on the same read, an additional local realignment step is performed with Indel_realignment.sh
-4) Atlas is used to merge overlapping reads to prevent them from being counted twice, as explained by Merge_reads.md
-5) Modern samples are downsampled, as explained here (work in progress)
-6) The alignment files are recalibrated to account for inaccuracies in the base quality scores and post-mortem damage in the museum samples
-7) Genotype-likelihood (GLF) and variant-call format (vcf) files are created 
+Before any analysis can begin, the reads must be mapped and processed. The rationale is explained below and instructions on how to perform each step are given here.
+1) The reference genome is filtered to remove the W chromosome, mitochondria and unplaced scaffolds. Although all individuals are male, so they should not possess a W chromosome, this prevents misalignments and ensures that there are no haploid regions (mitochondria) that would interfere with heterozygosity stats. The genome is also indexed using various methods required for downstream analysis tools
+2) Sequencing read files are trimmed to remove adaptor sequences and then mapped to the reference genome.
+3) Read group information is added to specify the sequencing run of each individual. This is particularly important for species such as the chalk hill blue, where modern core samples were sequenced on two different flow cells, as there can be biases inherent to specific runs. Each alignment file is then filtered to only keep paired reads and those that are mapped in a proper pair, whilst excluding those where the read or its mate is unmapped, the read is in a secondary or supplementary alignment and the read has failed vendor quality checks. Afterwards, a mate score tag is added and any duplicates are removed (Figure 1), keeping the reads with the highest mate score.
+4) Genome alignment tools often do a poor job at aligning indels. This is not usually a problem as downstream variant callers will usually negate this effect, eg haploype-aware variant callers (Freebayes) will not use the sequence information rather than the alignment. However, the atlas genotype likelihood files will be incorrect unless a local realignment is performed around indels. GATK3.8 is used to perform this by first creating a list of targets and then realigning them (Figure 2).
+5) Atlas is used to merge overlapping reads to prevent them from being counted twice, as explained by Merge_reads.md
+6) Modern samples are downsampled, as explained here (work in progress)
+7) The alignment files are recalibrated to account for inaccuracies in the base quality scores and post-mortem damage in the museum samples
+8) Genotype-likelihood (GLF) and variant-call format (vcf) files are created
+
+![image](https://github.com/user-attachments/assets/7cb1bbc5-1084-4821-b991-ce9bcb755b81)
+Figure 1. Slide from an illumina presentation explaining how duplicate reads can occur. Velocity data were sequenced on a patterned flow cell.
 
 ![image](https://github.com/user-attachments/assets/4641facb-1708-46b5-bad8-267dd14cefa5)
 
