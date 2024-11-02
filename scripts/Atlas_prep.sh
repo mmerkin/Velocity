@@ -7,6 +7,9 @@ seqCycles=151
 
 ATLAS=/pub64/mattm/apps/atlas/build/atlas
 
+
+mkdir -p $output
+
 echo -e "readGroup\tseqType\tseqCycles\n${readGroup}\tpaired\t${seqCycles}" > "${readGroup}_RGS.txt"
 
 for file in "$datapath"/*realn.bam; do 
