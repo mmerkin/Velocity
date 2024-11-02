@@ -22,6 +22,7 @@ $ATLAS trimSoftClips --bam $file
 $ATLAS mergeOverlappingReads \
 --readGroupSettings "${readGroup}_RGS.txt" \
 --mergingMethod highestQuality \
+--removeSoftClippedBases \
 --bam "${datapath}/${filetag}_softClippedBasesRemoved.bam"
 
 cp "${datapath}/${filetag}_softClippedBasesRemoved_merged.bam" "$output/${reduced_filetag}_final.bam"
