@@ -8,7 +8,7 @@ Before any analysis can begin, the reads must be mapped and processed. The ratio
 1) The reference genome is filtered to remove the W chromosome, mitochondria and unplaced scaffolds. Although all individuals are male, so they should not possess a W chromosome, this prevents misalignments and ensures that there are no haploid regions (mitochondria) that would interfere with heterozygosity stats. The genome is also indexed using various methods required for downstream analysis tools
 2) Sequencing read files are trimmed to remove adaptor sequences and then mapped to the reference genome.
 3) Read group information is added to specify the sequencing run of each individual. This is particularly important for species such as the chalk hill blue, where modern core samples were sequenced on two different flow cells, as there can be biases inherent to specific runs. Each alignment file is then filtered to only keep paired reads and those that are mapped in a proper pair, whilst excluding those where the read or its mate is unmapped, the read is in a secondary or supplementary alignment and the read has failed vendor quality checks. Afterwards, a mate score tag is added and any duplicates are removed (Figure 1), keeping the reads with the highest mate score.
-4) Genome alignment tools often do a poor job at aligning indels. This is not usually a problem as downstream variant callers will usually negate this effect, eg haploype-aware variant callers (Freebayes) will not use the sequence information rather than the alignment. However, the atlas genotype likelihood files will be incorrect unless a local realignment is performed around indels. GATK3.8 is used to perform this by first creating a list of targets and then realigning them (Figure 2).
+4) Genome alignment tools often do a poor job at aligning indels (Figure 2), so GATK is used to perform a local realignment. 
 5) Atlas is used to merge overlapping reads to prevent them from being counted twice, as explained by Merge_reads.md
 6) Modern samples are downsampled, as explained here (work in progress)
 7) The alignment files are recalibrated to account for inaccuracies in the base quality scores and post-mortem damage in the museum samples.
@@ -18,9 +18,10 @@ Before any analysis can begin, the reads must be mapped and processed. The ratio
 
 Figure 1. Slide from an illumina presentation explaining how duplicate reads can occur. Velocity data were sequenced on a patterned flow cell (HiSeq3000 or 4000), so have ExAmp (clustering) duplicates instead of optical duplicates. During the pipeline, any reads that are mapped to the same position and direction are removed (PCR and ExAmp), but sister duplicates remain. 
 
-![image](https://github.com/user-attachments/assets/4641facb-1708-46b5-bad8-267dd14cefa5)
+![image](https://github.com/user-attachments/assets/107402a5-44a2-47b2-bc40-39323db322c6)
 
-Figure 2. Recalibration
+
+Figure 2. GATK explanation of why indel realignment is necessary, which occurs due to bwa providing a larger penalty to gaps than mismatches ([link](https://qcb.ucla.edu/wp-content/uploads/sites/14/2016/03/GATKwr12-3-IndelRealignment.pdf)). This is not usually a problem as downstream variant callers will usually negate this effect, eg haploype-aware variant callers (Freebayes) will use the sequence information rather than the alignment. However, the atlas genotype likelihood files will be incorrect unless a local realignment is performed around indels.
 
 Figure 3. Deamination. hDNA contains fragmented DNA with overhanging ends, where the unpaired cytosine residues are susceptible to a deamination reaction that will cause them to sponatenously convert to uracil. During library preparation, T4 DNA polymerase is added to create blunt ends for adaptor ligation, which has 5'-3' polymerase activity and 3'-5' exonuclease activity. This means that 3' overhangs are degraded and 5' overhangs are filled in, pairing any U bases with an A. Subsequent rounds of PCR amplification then replace the U with a T. This means that the 5' ends of sequencing reads will contain many C-to-T substitutions, whilst the 3' end of the complementary strand will have G-to-A substitutions, with the number of each decreasing exponentially from the fragment ends. Therefore, atlas corrects for these substituions using a model of exponential decay. 
 
