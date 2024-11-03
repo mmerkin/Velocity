@@ -1,6 +1,6 @@
 # Velocity
 
-A repository of all the scripts and code I used to complete the velocity PHD project. Explainations for each step are given below.
+A repository of all the scripts and code I am using to complete the velocity PHD project starting in October 2024. Explainations for each step are given below.
 
 ## Initial processing:
 
