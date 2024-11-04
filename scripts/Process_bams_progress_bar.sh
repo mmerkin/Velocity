@@ -2,15 +2,15 @@
 
 # Frequently changed variables
 
-datapath=/pub61/florat/velocity/aphantopus_hyperantus/modern_data/00_raw_reads_modc
-output=/pub64/mattm/velocity/sequence_files/Aphantopus_hyperantus/modc_test3
-threads=32
-remove_temp=true
+datapath=
+output=
+threads=
+remove_temp=
 
-add_RG=true
-PICARD=/pub64/mattm/apps/picard/build/libs/picard.jar
-RGID=E3modc
-RGLB=mod03
+add_RG=
+PICARD=
+RGID=
+RGLB=
 
 
 
@@ -19,6 +19,13 @@ RGLB=mod03
 
 
 set -e  # Causes the code to abort if there is an error
+
+# Aborts the code if variables aren't set
+
+if [[ -z $datapath ]] || [[ -z $output ]] || [[ -z $threads ]] || [[ -z $remove_temp ]] || [[ -z $add_RG ]]; then
+echo "At least one essential variable is missing. Make sure to define the variables before running the script" 
+exit 1
+fi
 
 ## Progress bar
 
