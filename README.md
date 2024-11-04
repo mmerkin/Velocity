@@ -3,10 +3,12 @@
 A repository of all the scripts and code I am using to complete the velocity PHD project starting in October 2024. The rationale for performing each step is given below, along with links to instructions on how to carry them out.
 
 ## Initial processing:
-
 Before any analysis can begin, the reads must be mapped and processed.
+
 [1.1](Instructions/1.1.Prepare_genome.md) The reference genome is filtered to remove the W chromosome, mitochondria and unplaced scaffolds. Although all individuals are male, so they should not possess a W chromosome, this prevents misalignments and ensures that there are no haploid regions (mitochondria) that would interfere with heterozygosity stats. The genome is also indexed using various methods required for downstream analysis tools
-2) Sequencing read files are trimmed to remove adaptor sequences and then mapped to the reference genome.
+
+[1.2](Instructions/1.2.Map_reads.md) Sequencing read files are trimmed to remove adaptor sequences and then mapped to the reference genome.
+
 3) Read group information is added to specify the sequencing run of each individual. This is particularly important for species such as the chalk hill blue, where modern core samples were sequenced on two different flow cells, as there can be biases inherent to specific runs. Each alignment file is then filtered to only keep paired reads and those that are mapped in a proper pair, whilst excluding those where the read or its mate is unmapped, the read is in a secondary or supplementary alignment, the read has failed the quality checks of the sequencing machine or the read has a mapping quality score below 20 (99% chance of being accurate). Secondary alignments are the result of a read mapping to multiple places (only the primary/most confident is kept), whereas supplementary alignments occur when the read has been split in two (eg the read spans a large deletion so will be mapped to either side of it); both of these are removed as they can introduce errors and we are only interested in snps. Afterwards, a mate score tag is added and any duplicates are removed by looking for multiple reads with same position and direction (Figure 1), keeping the reads with the highest mate score. It is important to remove duplicates as they can give the impression that an allele is at a higher frequency than it actually is.
 4) Genome alignment tools often do a poor job at aligning indels (Figure 2), so GATK is used to perform a local realignment. 
 5) Atlas is used to further process the reads by removing soft clipped bases, where part of the read does not align to the reference; these can be useful for detecting indels, but we only want to look at SNPS, so soft-clipping will just increase the chance of a misalignment. Additionally, overlapping read ends are merged to prevent them from being counted twice (in a similar manner to duplicate reads).
