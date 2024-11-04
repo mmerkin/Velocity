@@ -6,13 +6,11 @@ datapath=/pub61/florat/velocity/aphantopus_hyperantus/modern_data/00_raw_reads_m
 output=/pub64/mattm/velocity/sequence_files/Aphantopus_hyperantus/modc_test3
 threads=32
 remove_temp=true
-add_RG=true
 
+add_RG=true
 PICARD=/pub64/mattm/apps/picard/build/libs/picard.jar
 RGID=E3modc
 RGLB=mod03
-
-
 
 
 
@@ -49,6 +47,8 @@ function calculate_progress {
     echo -ne "\rProgress : [${done_sub_bar}${todo_sub_bar}] ${percent}%"
 }
 
+# Refresh the progress bar after each command has finished running
+
 function update_progress {
   task_number=$((task_number + 1))
   calculate_progress $task_number $tasks_in_total
@@ -81,7 +81,7 @@ if $add_RG; then
   -RGSM $filetag 2> /dev/null
   tasks_in_total=$((tasks_in_total + 1))
   update_progress
-# filter out reads based on flags, eg unmapped/secondary using different inputs depending on whether RGs have been added
+# filter out reads based on flags, eg unmapped/secondary using different inputs, depending on whether RGs have been added
   samtools view -@ 32 -b -f 3 -F 2828 -q 20 "$output/${filetag}.RG.bam" -o "$output/${filetag}.filtered.bam"
 else
   samtools view -@ 32 -b -f 3 -F 2828 -q 20 $file -o "$output/${filetag}.filtered.bam"
@@ -90,25 +90,37 @@ fi
 
 update_progress
 
+# Sort the reads by name for fixmate input, discarding the stderr output to dev/null so it won't display on the command line
+
 samtools sort -@ 32 -n "$output/${filetag}.filtered.bam" -o "$output/${filetag}.sorted.n.bam" 2> /dev/null
 
 update_progress
+
+# Add mate score tags for duplicate removal
 
 samtools fixmate -@ 32 -m "$output/${filetag}.sorted.n.bam" "$output/${filetag}.fixmate.bam"
 
 update_progress
 
+# Sort the reads by position for markdup input
+
 samtools sort -@ 32 "$output/${filetag}.fixmate.bam" -o "$output/${filetag}.sorted.p.bam" 2> /dev/null
 
 update_progress
+
+# Remove duplicate reads
 
 samtools markdup -r -@ 32 "$output/${filetag}.sorted.p.bam" "$output/${filetag}.markdup.bam"
 
 update_progress
 
+# Index the final bam file
+
 samtools index "$output/${filetag}.markdup.bam"
 
 update_progress
+
+# Remove all temporary files
 
 if $remove_temp; then
   rm "$output/${filetag}.sorted.n.bam" "$output/${filetag}.fixmate.bam" "$output/${filetag}.sorted.p.bam" "$output/${filetag}.filtered.bam" 
