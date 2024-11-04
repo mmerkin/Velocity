@@ -2,16 +2,16 @@
 
 # Variables
 
-datapath=/pub61/florat/velocity/aphantopus_hyperantus/modern_data/00_raw_reads_modc
-output=/pub64/mattm/velocity/sequence_files/Aphantopus_hyperantus/modc_test3
-threads=32
-remove_temp=true
+datapath=
+output=
+threads=
+remove_temp=
 
-add_RG=true
-PICARD=/pub64/mattm/apps/picard/build/libs/picard.jar
-RGID=E3modc
-RGLB=mod03
-logfile=Ah_mode_bamprep.log
+add_RG=
+PICARD=
+RGID=
+RGLB=
+logfile=
 
 
 
