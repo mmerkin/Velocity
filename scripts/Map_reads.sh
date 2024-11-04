@@ -10,8 +10,8 @@ threads=
 
 # Exits the code if variables aren't set
 
-if [[ -z $REF ]]; then
-echo "No reference detected. Make sure to define the variables before running the script" 
+if [[ -z $REF ]] || [[ -z $datapath ]] || [[ -z $output ]] || [[ -z $threads ]]; then
+echo "At least one essential variable is missing. Make sure to define the variables before running the script" 
 exit 1
 fi
 
