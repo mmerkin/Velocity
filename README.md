@@ -2,6 +2,11 @@
 
 A repository of all the scripts and code I am using to complete the velocity PHD project starting in October 2024. The rationale for performing each step is given below, along with links to instructions on how to carry them out.
 
+Certain commands require particular tools to run; most of these can be downloaded from the revelant [conda environment yaml file](Conda_environments) using the following command:
+```bash
+ conda create --name $ENVIRONMENT_NAME --file $PATH/TO/FILE.yaml
+```
+
 ## Initial processing:
 Before any analysis can begin, the reads must be mapped and processed.
 
