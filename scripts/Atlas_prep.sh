@@ -1,12 +1,13 @@
 #! /bin/bash
 
-datapath=/pub64/mattm/velocity/Aphantopus_hyperantus/modc_realign
-output=/pub64/mattm/velocity/Aphantopus_hyperantus/modc_final
-readGroup=E3modc
-seqCycles=151
+datapath=
+output=
+readGroup=
+seqCycles=
+ATLAS=
 
-ATLAS=/pub64/mattm/apps/atlas/build/atlas
 
+## Code
 
 mkdir -p $output
 
@@ -21,7 +22,6 @@ $ATLAS trimSoftClips --bam $file
 
 $ATLAS mergeOverlappingReads \
 --readGroupSettings "${readGroup}_RGS.txt" \
---mergingMethod highestQuality \
 --removeSoftClippedBases \
 --bam "${datapath}/${filetag}_softClippedBasesRemoved.bam"
 
