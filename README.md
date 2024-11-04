@@ -38,6 +38,8 @@ To do:
 ```bash
 # Requires perl: cpan conda environment
 rename s/realn_merged/final/ AH*
+# Check disk usage
+du * -sh
 ```
 
 6) Calculate coverage with this script
