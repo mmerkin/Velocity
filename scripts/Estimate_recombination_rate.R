@@ -20,4 +20,4 @@ for (i in Mb){
   num <- num + c
 }
 
-print(round(num, digits = 1))
+print(round(num, digits = 1)/2)
