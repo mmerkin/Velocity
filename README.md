@@ -43,6 +43,17 @@ Figure 2. GATK explanation of why indel realignment is necessary, which occurs d
 Figure 3. An overview of how post-mortem deamination can affect base calls. A) aDNA contains fragmented DNA with overhanging ends, where the unpaired cytosine residues are susceptible to a deamination reaction that will cause them to sponatenously convert to uracil. B) During library preparation, T4 DNA polymerase is added to create blunt ends for adaptor ligation, which has 5'-3' polymerase activity and 3'-5' exonuclease activity. This means that 3' overhangs are degraded and 5' overhangs are filled in, pairing any U bases with an A. Subsequent rounds of PCR amplification then replace the U with a T. C) As a result, the 5' ends of sequencing reads will contain many C-to-T substitutions, whilst the 3' end of the complementary strand will have G-to-A substitutions, with the number of each decreasing exponentially from the fragment ends. Therefore, atlas corrects for these substituions using a model of exponential decay. A and C were taken from [here](https://pmc.ncbi.nlm.nih.gov/articles/PMC3685887/) and [here](https://www.pnas.org/doi/10.1073/pnas.0704665104), whilst B was adapted from [here](https://www.cytivalifesciences.com/en/us/news-center/enzymes-in-ngs-library-prep-10001).
 
 
+
+# Ne estimation
+
+R script here:
+
+
+
+
+
+
+
 To do:
 
 -Add log file creation steps to each script
@@ -57,24 +68,7 @@ rename s/realn_merged/final/ AH*
 du * -sh
 ```
 
-6) Calculate coverage with this script
-7) Downsample modern data based on coverage
-8) Estimate errors
 
-8.1. Modern samples
-```bash
-parallel -j 10 /pub64/mattm/apps/atlas/build/atlas estimateErrors --minDeltaLL 0.1 --NPsi 0 \
---fasta /pub64/mattm/velocity/sequence_files/Hesperia_comma/reference/GCA_905404135.1.fasta --bam {} \
-::: /pub64/mattm/velocity/sequence_files/Hesperia_comma/marked_duplicates/*.bam
-```
-
-  8.2. Museum samples
-```bash
-parallel -j 10 /pub64/mattm/apps/atlas/build/atlas estimateErrors --minDeltaLL 0.1  \
---fasta /pub64/mattm/velocity/sequence_files/Hesperia_comma/reference/GCA_905404135.1.fasta --bam {} \
-::: /pub64/mattm/velocity/sequence_files/Hesperia_comma/marked_duplicates/*.bam
-
-```
 9) Create GLF 
 ```bash
 parallel -j 8 /pub64/mattm/apps/atlas/build/atlas GLF --bam {} --RGInfo {.}_RGInfo.json ::: /pub64/mattm/velocity/sequence_files/Hesperia_comma/marked_duplicates/*.bam
