@@ -10,7 +10,7 @@ Certain commands require particular tools to run; most of these can be downloade
 ## Initial processing:
 Before any analysis can begin, the reads must be mapped and processed.
 
-[1.1. Genome preparation.](Instructions/1.1.Prepare_genome.md) The reference genome is filtered to remove the W chromosome, mitochondria and unplaced scaffolds. Although all individuals are male, so they should not possess a W chromosome, this prevents misalignments and ensures that there are no haploid regions (mitochondria) that would interfere with heterozygosity stats. The genome is also indexed using various methods required for downstream analysis tools
+[1.1. Genome preparation.](Instructions/1.1.Prepare_genome.md) The reference genome is filtered to remove the W chromosome, mitochondria and unplaced scaffolds. Although all individuals are male, so they should not possess a W chromosome, this prevents misalignments and ensures that there are no haploid regions (mitochondria) that would interfere with heterozygosity stats. The genome is also indexed using various methods required for downstream analysis tools. NOTE I WILL INSTEAD ONLY BE FILTERING OUT THE W AT THIS STAGE AND THEN FILTERING OUT THE OTHERS AFTER 1.2.
 
 [1.2. Read mapping.](Instructions/1.2.Map_reads.md) Sequencing read files are trimmed to remove adaptor sequences and then mapped to the reference genome.
 
@@ -30,29 +30,27 @@ Figure 2. GATK explanation of why indel realignment is necessary, which occurs d
 
 [1.6. Error recalibration.](Instructions/1.6.Error_recalibration.md) Sequencing machines produce base quality scores as a probability of each base call being incorrect (eg a score of 40 means the base has a 1 in 10000 chance of being incorrect ie a 99.99% chance of being correct). However, these are often really inaccurate, so must be recalibrated by Atlas before genotype likelihood files can be generated, which rely heavily on quality scores. Additionally, the same command corrects for post-mortem damage (Figure 3) in the museum samples. This is the rate-limiting step as it can take up to 17 hours to run for a single sample, which still amounts to days if multiple samples are run at the same time (all the other steps only take a few hours at most)
 
-
-8) Super low coverage results in overestimations for genome diversity, so the modern samples will be downsampled to match the lower coverage of the museum samples. This step is still a work in progress.
-9) Finally, the alignments (bam files) produced in step #6 and the recalibration parameters from step #7 (json file) can be used to generate the final genotype likelihood files which can either be analysed directly or used to call variants to create a vcf file for downstream analysis
-
-
-
-
-
 ![image](https://github.com/user-attachments/assets/912da626-3e0a-4159-838e-581dfa76e5c3)
 
 Figure 3. An overview of how post-mortem deamination can affect base calls. A) aDNA contains fragmented DNA with overhanging ends, where the unpaired cytosine residues are susceptible to a deamination reaction that will cause them to sponatenously convert to uracil. B) During library preparation, T4 DNA polymerase is added to create blunt ends for adaptor ligation, which has 5'-3' polymerase activity and 3'-5' exonuclease activity. This means that 3' overhangs are degraded and 5' overhangs are filled in, pairing any U bases with an A. Subsequent rounds of PCR amplification then replace the U with a T. C) As a result, the 5' ends of sequencing reads will contain many C-to-T substitutions, whilst the 3' end of the complementary strand will have G-to-A substitutions, with the number of each decreasing exponentially from the fragment ends. Therefore, atlas corrects for these substituions using a model of exponential decay. A and C were taken from [here](https://pmc.ncbi.nlm.nih.gov/articles/PMC3685887/) and [here](https://www.pnas.org/doi/10.1073/pnas.0704665104), whilst B was adapted from [here](https://www.cytivalifesciences.com/en/us/news-center/enzymes-in-ngs-library-prep-10001).
 
+1.7. Downsampling instructions will go here once completed. Samples at super low coverage have an artifically inflated diveristy estimate due to sequencing errors and the inability to call both alleles when the depth is less than 2. As such, the modern samples at higher coverage are downsampled to bring them in line with the museum estimates to enable greater comparison. This will likely involve 2 steps: a depth calculation based on mosdepth and then downsampling with Atlas.
+
+1.8. Finally, the alignments (bam files) produced in step #5 and the recalibration parameters from step #6 (json file) can be used to generate the final genotype likelihood files which can either be analysed directly or used to call variants to create a vcf file for downstream analysis
 
 
 # Ne estimation
 
-R script here:
+I plan on estimating Ne using GoNe once the vcfs are produced for the modern samples, but I am currently waiting for step 1.6 to finish.
 
 
 
 
 
 
+# Notes
+
+Ignore the below information, I will relocate it somewhere else later
 
 To do:
 
@@ -69,21 +67,8 @@ du * -sh
 ```
 
 
-9) Create GLF 
 ```bash
 parallel -j 8 /pub64/mattm/apps/atlas/build/atlas GLF --bam {} --RGInfo {.}_RGInfo.json ::: /pub64/mattm/velocity/sequence_files/Hesperia_comma/marked_duplicates/*.bam
 ```
 
 
-
-## Issues:
-
-Indel realignment fails on Z chromosome of *Hesperia comma*, but *Aphantopus hyperantus* works fine
-
-Solution: *H. comma* realignment works after remapping one individual. I should start over and remap every individual following the removal of relevant contigs (W chromosome, mtDNA, unplaced contigs)
-```bash
-#exclude_contigs.txt created using grep ">" Hc_genome.fa and copying relevnat contigs to a text file (without the '>')
-seqkit grep -v -n -f exclude_contigs.fa Hc_genome.fa > Hc_genome_noW.fa
-
-bwa-mem2 mem -t 32 Hc_genome_noW.fa HC-19-2016-21_L007.veladapt.clean_R1.fastq.gz HC-19-2016-21_L007.veladapt.clean_R2.fastq.gz > "HC-19-2016-21_L007.raw.bam"
-```
