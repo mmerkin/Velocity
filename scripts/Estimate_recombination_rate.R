@@ -21,3 +21,16 @@ for (i in Mb){
 }
 
 print(round(num, digits = 1)/2)
+
+
+
+#! /bin/bash
+
+index_file="/pub64/mattm/velocity/Aphantopus_hyperantus/reference/Ahyperantus_genome.fa.fai"
+Z="LR761650.1"
+
+grep -v "$Z" $index_file | cut -f2 | awk '{ print $size / 1000000 }' >temp.txt
+Total=$(awk '{ sum += $1 } END { print sum }' <temp.txt)
+awk -v tot=$Total '{ print (50/$1)*($1/tot) }' <temp.txt | awk '{ sum += $1 } END { print sum/2 }' | awk '{printf("%.1f\n", $0)}'
+
+rm temp.txt
