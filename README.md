@@ -43,7 +43,28 @@ Figure 3. An overview of how post-mortem deamination can affect base calls. A) a
 
 I plan on estimating Ne using GoNe once the vcfs are produced for the modern samples, but I am currently waiting for step 1.6 to finish.
 
+Here is a way to estimate recombination rate using awk: I will make a dedicated page for it later:
+```bash
+#! /bin/bash
 
+index_file="/pub64/mattm/velocity/Aphantopus_hyperantus/reference/Ahyperantus_genome.fa.fai"
+Z="LR761650.1"
+
+awk -v Z="$Z" -v scale=1000000 '{
+    if ($1 != Z) {
+        size = $2 / scale;
+        sizes[NR] = size;
+        total += size;
+        iteration++;
+    }
+}
+END {
+    for (i = 1; i <= iteration; i++) {
+        weighted_r_sum += (50 / sizes[i]) * (sizes[i] / total);	
+    }
+    printf("%.1f\n", weighted_r_sum / 2);
+}' "$index_file"
+```
 
 
 
