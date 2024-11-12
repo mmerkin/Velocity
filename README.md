@@ -50,9 +50,9 @@ Here is a way to estimate recombination rate using awk: I will make a dedicated 
 index_file="/pub64/mattm/velocity/Aphantopus_hyperantus/reference/Ahyperantus_genome.fa.fai"
 Z="LR761650.1"
 
-awk -v Z="$Z" -v scale=1000000 '{
+awk -v Z="$Z" '{
     if ($1 != Z) {
-        size = $2 / scale;
+        size = $2 / 1000000;
         sizes[NR] = size;
         total += size;
         iteration++;
