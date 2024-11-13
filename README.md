@@ -76,10 +76,11 @@ Ignore the below information, I will relocate it somewhere else later
 To do:
 
 -Add log file creation steps to each script
--Add catch to mapping script to remove lane number where relevant 
--Create missing github files based on below information and add links to README
--Create riparian plot for blue species with GENESPACE
 
+-Add catch to mapping script to remove lane number where relevant 
+
+
+Here are two useful commands that I keep forgetting how to perform
 ```bash
 # Requires perl: cpan conda environment
 rename s/realn_merged/final/ AH*
@@ -87,7 +88,7 @@ rename s/realn_merged/final/ AH*
 du * -sh
 ```
 
-
+This is how to perform the GLF creation using parallel
 ```bash
 parallel -j 8 /pub64/mattm/apps/atlas/build/atlas GLF --bam {} --RGInfo {.}_RGInfo.json ::: /pub64/mattm/velocity/sequence_files/Hesperia_comma/marked_duplicates/*.bam
 ```
