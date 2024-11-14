@@ -13,31 +13,28 @@ fail_log=Ah_modc_realign_fails.txt
 # Code
 
 
-mkdir -p $output
-
-
 function realign_indels {
         name="$1"
         gatk3 \
         -T RealignerTargetCreator \
         -R $REF \
-        -o "${output}/${name}.intervals" \
-        -I "${datapath}/${name}.markdup.bam"
+        -o "$output/$name/$name.intervals" \
+        -I "$datapath/$name/$name.processed.bam"
 
         gatk3 \
         -T IndelRealigner \
         -R $REF \
-        -targetIntervals "${output}/${name}.intervals" \
-        -I "${datapath}/${name}.markdup.bam" \
-        -o "${output}/${name}.realn.bam"
+        -targetIntervals "$output/$name/$name.intervals" \
+        -I "$datapath/$name/$name.processed.bam" \
+        -o "$output/$name/$name.realn.bam"
 }
 
 function print_error_file {
         echo $1 
 }
 
-for file in "$datapath"/*markdup.bam; do 
-filename=${file##*/}
-filetag=$(basename "$filename" ".markdup.bam")
+for file in "$datapath"/*; do 
+filetag=${file##*/}
+mkdir -p $output/$filetag
 realign_indels $filetag || print_error_file $filetag &>> $fail_log
 done
