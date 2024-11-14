@@ -52,9 +52,9 @@ Z="LR761650.1"
 
 awk -v Z="$Z" '{
     if ($1 != Z) {
-        size = $2 / 1000000;
-        sizes[NR] = size;
-        total += size;
+        size = $2 / 1000000
+        sizes[NR] = size
+        total += size
         iteration++
     }
 }
@@ -67,7 +67,17 @@ END {
 
 # Alternatively:
 
-awk -v Z="LR761650.1" '{ if ($1 != Z ) { size = $2 / 1000000; total += size; iteration++ }} END { weighted_r_sum = (50 / total) * iteration; printf("%.1f\n", weighted_r_sum / 2) }' Ahyperantus_genome.fa.fai
+awk -v Z="LR761650.1" '{
+    if ($1 != Z ) {
+        size = $2 / 1000000
+        total += size
+        iteration++
+    }
+}
+END {
+    weighted_r_sum = (50 / total) * iteration
+    printf("%.1f\n", weighted_r_sum / 2)
+}' Ahyperantus_genome.fa.fai
 ```
 
 
