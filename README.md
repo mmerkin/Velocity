@@ -52,18 +52,32 @@ Z="LR761650.1"
 
 awk -v Z="$Z" '{
     if ($1 != Z) {
-        size = $2 / 1000000;
-        sizes[NR] = size;
-        total += size;
-        iteration++;
+        size = $2 / 1000000
+        sizes[NR] = size
+        total += size
+        iteration++
     }
 }
 END {
     for (i = 1; i <= iteration; i++) {
-        weighted_r_sum += (50 / sizes[i]) * (sizes[i] / total);	
+        weighted_r_sum += (50 / sizes[i]) * (sizes[i] / total)
     }
-    printf("%.1f\n", weighted_r_sum / 2);
+    printf("%.1f\n", weighted_r_sum / 2)
 }' "$index_file"
+
+# Alternatively:
+
+awk -v Z="LR761650.1" '{
+    if ($1 != Z ) {
+        size = $2 / 1000000
+        total += size
+        iteration++
+    }
+}
+END {
+    weighted_r_sum = (50 / total) * iteration
+    printf("%.1f\n", weighted_r_sum / 2)
+}' Ahyperantus_genome.fa.fai
 ```
 
 
