@@ -12,7 +12,9 @@ PICARD=
 RGID=
 RGLB=
 
-
+remove_ctgs=
+unplaced=
+mtDNA=
 
 ## Code
 
@@ -61,37 +63,40 @@ function update_progress {
   calculate_progress $task_number $tasks_in_total
 }
 
-## Process the bam files
+# Process the bam files
 
-mkdir -p $output
-
-for file in "$datapath"/*sort.bam; do 
+for file in "$datapath"/*; do 
 # Set variables of sample name and task numbers
-filename=${file##*/}
-filetag=$(basename "$filename" ".sort.bam")
+filetag=${file##*/}
 task_number=0
 tasks_in_total=6
 
 echo -e "\nMoving to sample ${filetag}"
 
+mkdir -p "$output/$filetag"
+
 calculate_progress $task_number $tasks_in_total
+
+if $remove_ctgs; then
+    tasks_in_total=$((tasks_in_total + 1))
+fi
 
 # Add read groups (if enabled), preventing the output from printing, and update the progress bar
 
 if $add_RG; then
-  java -jar $PICARD AddOrReplaceReadGroups \
-  -I $file \
-  -O "$output/${filetag}.RG.bam" \
-  -RGID $RGID \
-  -RGLB $RGLB \
+  java -jar "$PICARD" AddOrReplaceReadGroups \
+  -I "$file/$filetag.sort.bam" \
+  -O "$output/$filetag/$filetag.RG.bam" \
+  -RGID "$RGID" \
+  -RGLB "$RGLB" \
   -RGPL ILLUMINA -RGPU unit1 \
-  -RGSM $filetag 2> /dev/null
+  -RGSM "$filetag" 2> /dev/null
   tasks_in_total=$((tasks_in_total + 1))
   update_progress
 # filter out reads based on flags, eg unmapped/secondary using different inputs, depending on whether RGs have been added
-  samtools view -@ 32 -b -f 3 -F 2828 -q 20 "$output/${filetag}.RG.bam" -o "$output/${filetag}.filtered.bam"
+  samtools view -@ 32 -b -f 3 -F 2828 -q 20 "$output/$filetag/$filetag.RG.bam" -o "$output/$filetag/$filetag.filtered.bam"
 else
-  samtools view -@ 32 -b -f 3 -F 2828 -q 20 $file -o "$output/${filetag}.filtered.bam"
+  samtools view -@ 32 -b -f 3 -F 2828 -q 20 "$file/$filetag.sort.bam" -o "$output/$filetag/$filetag.filtered.bam"
 fi
 
 
@@ -99,40 +104,48 @@ update_progress
 
 # Sort the reads by name for fixmate input, discarding the stderr output to dev/null so it won't display on the command line
 
-samtools sort -@ 32 -n "$output/${filetag}.filtered.bam" -o "$output/${filetag}.sorted.n.bam" 2> /dev/null
+samtools sort -@ 32 -n "$output/$filetag/$filetag.filtered.bam" -o "$output/$filetag/$filetag.sorted.n.bam" 2> /dev/null
 
 update_progress
 
 # Add mate score tags for duplicate removal
 
-samtools fixmate -@ 32 -m "$output/${filetag}.sorted.n.bam" "$output/${filetag}.fixmate.bam"
+samtools fixmate -@ 32 -m "$output/$filetag/$filetag.sorted.n.bam" "$output/$filetag/$filetag.fixmate.bam"
 
 update_progress
 
 # Sort the reads by position for markdup input
 
-samtools sort -@ 32 "$output/${filetag}.fixmate.bam" -o "$output/${filetag}.sorted.p.bam" 2> /dev/null
+samtools sort -@ 32 "$output/$filetag/$filetag.fixmate.bam" -o "$output/$filetag/$filetag.sorted.p.bam" 2> /dev/null
 
 update_progress
 
-# Remove duplicate reads
+if $remove_ctgs; then
+    # Remove duplicate reads
+    samtools markdup -r -@ 32 "$output/$filetag/$filetag.sorted.p.bam" "$output/$filetag/$filetag.markdup.bam"
+    update_progress
+    # Remove unwanted contigs
+    samtools view -h "$output/$filetag/$filetag.markdup.bam" | grep -v -E "$unplaced|$mtDNA" | samtools view -bS > "$output/$filetag/$filetag.processed.bam"
+else
+    samtools markdup -r -@ 32 "$output/$filetag/$filetag.sorted.p.bam" "$output/$filetag/$filetag.processed.bam"
+fi
 
-samtools markdup -r -@ 32 "$output/${filetag}.sorted.p.bam" "$output/${filetag}.markdup.bam"
-
-update_progress
 
 # Index the final bam file
 
-samtools index "$output/${filetag}.markdup.bam"
+samtools index "$output/$filetag/$filetag.processed.bam"
 
 update_progress
 
 # Remove all temporary files
 
 if $remove_temp; then
-  rm "$output/${filetag}.sorted.n.bam" "$output/${filetag}.fixmate.bam" "$output/${filetag}.sorted.p.bam" "$output/${filetag}.filtered.bam" 
+  rm "$output/$filetag/$filetag.sorted.n.bam" "$output/$filetag/$filetag.fixmate.bam" "$output/$filetag/$filetag.sorted.p.bam" "$output/$filetag/$filetag.filtered.bam" 
   if $add_RG; then
-  rm "$output/${filetag}.RG.bam"
+  rm "$output/$filetag/$filetag.RG.bam"
+  fi
+  if $remove_ctgs; then
+  rm "$output/$filetag/$filetag.markdup.bam"
   fi
 fi
 
