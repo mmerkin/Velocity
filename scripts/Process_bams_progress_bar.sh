@@ -144,6 +144,9 @@ if $remove_temp; then
   if $add_RG; then
   rm "$output/$filetag/$filetag.RG.bam"
   fi
+  if $remove_ctgs; then
+  rm "$output/$filetag/$filetag.markdup.bam"
+  fi
 fi
 
 done
