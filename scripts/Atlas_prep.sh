@@ -1,10 +1,10 @@
 #! /bin/bash
 
-datapath=~/velocity/Aphantopus_hyperantus/modc_realign
-output=~/velocity/Aphantopus_hyperantus/modc_final
-readGroup=E3modc
-seqCycles=151
-
+datapath=
+output=
+readGroup=
+seqCycles=
+$ATLAS=
 
 ## Code
 
@@ -18,9 +18,9 @@ filetag=$(basename "$filename" ".bam")
 reduced_filetag=$(basename "$filename" ".realn.bam")
 mkdir -p $output/$reduced_filetag
 
-atlas trimSoftClips --bam $file
+$ATLAS trimSoftClips --bam $file
 
-atlas mergeOverlappingReads \
+$ATLAS mergeOverlappingReads \
 --readGroupSettings "${readGroup}_RGS.txt" \
 --removeSoftClippedBases \
 --bam "$datapath/$reduced_filetag/${filetag}_softClippedBasesRemoved.bam"
