@@ -91,8 +91,9 @@ To do:
 
 -Add log file creation steps to each script
 
--Add catch to mapping script to remove lane number where relevant 
+-test soft clip removal in latest version of atlas
 
+-View PMD patterns with atlas viewer R tool
 
 Here are two useful commands that I keep forgetting how to perform
 ```bash
