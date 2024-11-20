@@ -36,7 +36,7 @@ Figure 3. An overview of how post-mortem deamination can affect base calls. A) a
 
 1.6. Downsampling instructions will go here once completed. Samples at super low coverage have an artifically inflated diveristy estimate due to sequencing errors and the inability to call both alleles when the depth is less than 2. As such, the modern samples at higher coverage are downsampled to bring them in line with the museum estimates to enable greater comparison. This will likely involve 2 steps: a depth calculation based on mosdepth and then downsampling with Atlas.
 
-1.7. Finally, the alignments (bam files) produced in step #4 and the recalibration parameters from step #5 (json file) can be used to generate the final genotype likelihood files which can either be analysed directly or used to call variants to create a vcf file for downstream analysis
+[1.7. Final input file creation.] Finally, the alignments (bam files) produced in step #4 and the recalibration parameters from step #5 (json file) can be used to generate the final genotype likelihood files which can be used directly to infer many different statistics. Some of these many also require a vcf or sfs file, which are also generated in this step. The vcf is created by assuming that each site is a biallelic SNP and calling the major and minor alleles for that site across all individuals.
 
 
 # Ne estimation
