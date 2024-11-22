@@ -41,48 +41,7 @@ Figure 3. An overview of how post-mortem deamination can affect base calls. A) a
 
 ## Population level analyses
 
-[2.1. Effective population size.](Instructions/2.1.GONE.md) *N<sub>e</sub>*, is a measure of the number of individuals in a whole population that actually contribute to the gene pool, which is smaller than the census population size, *N<sub>c</sub>*. *N<sub>e</sub>* can be estimated genetically based on linkage disequilibrium, with WGS allowing for inferrance of the *N<sub>e</sub>* from previous generations as well based on a high number of linked markers. 
-
-
-
-```bash
-#! /bin/bash
-
-index_file="/pub64/mattm/velocity/Aphantopus_hyperantus/reference/Ahyperantus_genome.fa.fai"
-Z="LR761650.1"
-
-awk -v Z="$Z" '{
-    if ($1 != Z) {
-        size = $2 / 1000000
-        sizes[NR] = size
-        total += size
-        iteration++
-    }
-}
-END {
-    for (i = 1; i <= iteration; i++) {
-        weighted_r_sum += (50 / sizes[i]) * (sizes[i] / total)
-    }
-    printf("%.1f\n", weighted_r_sum / 2)
-}' "$index_file"
-
-# Alternatively:
-
-awk -v Z="LR761650.1" '{
-    if ($1 != Z ) {
-        size = $2 / 1000000
-        total += size
-        iteration++
-    }
-}
-END {
-    weighted_r_sum = (50 / total) * iteration
-    printf("%.1f\n", weighted_r_sum / 2)
-}' Ahyperantus_genome.fa.fai
-```
-
-
-
+[2.1. Effective population size.](Instructions/2.1.GONE.md) *N<sub>e</sub>*, is a measure of the number of individuals in a whole population that actually contribute to the gene pool, which is smaller than the census population size, *N<sub>c</sub>*. *N<sub>e</sub>* can be estimated genetically based on linkage disequilibrium, with WGS allowing for inferrance of the *N<sub>e</sub>* from previous generations as well based on a high number of linked markers. This does require an estimate of recombination rate, which can be calculated by assuming that there is one recombination event per chromosome, so each chromosome has a genetic distance of 50cM. The rate per chromosome is then 50 multiplied by the number of chromosomes and then divided by the total length of the genome in mb. The final recombination rate should then be divided by 2 as female butterflies do not recombine their chromosomes. 
 
 # Notes
 
