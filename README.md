@@ -39,11 +39,12 @@ Figure 3. An overview of how post-mortem deamination can affect base calls. A) a
 [1.7. Final input file creation.] Finally, the alignments (bam files) produced in step #4 and the recalibration parameters from step #5 (json file) can be used to generate the final genotype likelihood files which can be used directly to infer many different statistics. Some of these many also require a vcf or sfs file, which are also generated in this step. The vcf is created by assuming that each site is a biallelic SNP and calling the major and minor alleles for that site across all individuals.
 
 
-# Ne estimation
+## Ne estimation
 
-I plan on estimating Ne using GoNe once the vcfs are produced for the modern samples, but I am currently waiting for step 1.6 to finish.
+Effective population size, *N<sub>e</sub>*, 
 
-Here is a way to estimate recombination rate using awk: I will make a dedicated page for it later:
+
+
 ```bash
 #! /bin/bash
 
