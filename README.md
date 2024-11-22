@@ -39,9 +39,9 @@ Figure 3. An overview of how post-mortem deamination can affect base calls. A) a
 [1.7. Final input file creation.] Finally, the alignments (bam files) produced in step #4 and the recalibration parameters from step #5 (json file) can be used to generate the final genotype likelihood files which can be used directly to infer many different statistics. Some of these many also require a vcf or sfs file, which are also generated in this step. The vcf is created by assuming that each site is a biallelic SNP and calling the major and minor alleles for that site across all individuals.
 
 
-## Ne estimation
+## Population level analyses
 
-Effective population size, *N<sub>e</sub>*, 
+[2.1. Effective population size.](Instructions/2.1.GONE.md) *N<sub>e</sub>*, is a measure of the number of individuals in a whole population that actually contribute to the gene pool, which is smaller than the census population size, *N<sub>c</sub>*. *N<sub>e</sub>* can be estimated genetically based on linkage disequilibrium, with WGS allowing for inferrance of the *N<sub>e</sub>* from previous generations as well based on a high number of linked markers. 
 
 
 
