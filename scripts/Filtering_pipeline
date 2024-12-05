@@ -1,112 +1,135 @@
 #! /bin/bash
 
-# Variables
+# Frequently changed variables
 
-datapath=/pub61/florat/velocity/aphantopus_hyperantus/modern_data/00_raw_reads_modc
-output=/pub64/mattm/velocity/sequence_files/Aphantopus_hyperantus/modc_test3
-threads=32
-remove_temp=true
-PICARD=/pub64/mattm/apps/picard/build/libs/picard.jar
-RGID=E3modc
-RGLB=mod03
-logfile=Ah_mode_bamprep.log
+datapath=
+temp=
+output=
+REF=
+logfile=
+threads=
+remove_temp=
+
+add_RG=
+RGID=
+RGLB=
 
 
+# path to tools/conda environments
+PICARD=~/apps/picard/build/libs/picard.jar
+ATLAS=~/apps/atlas/build/atlas
+conda=~/miniconda3/bin/
+mem2=mem2
+GATK38=GATK38
 
 
-# Code
+if [[ -z $datapath ]] || [[ -z $temp ]] || [[ -z $output ]] || [[ -z $REF ]] || [[ -z $logfile ]] || [[ -z $threads ]] || [[ -z $remove_temp ]] || [[ -z $add_RG ]]; then
+echo "At least one essential variable is missing. Make sure to define the variables before running the script" 
+exit 1
+fi
 
-# Set up log file
 
 exec 3>&1 1>"$logfile" 2>&1
-trap "echo 'ERROR: An error occurred during execution, check log $logfile for details.' >&3" ERR
+trap "echo 'ERROR: An error occurred during execution, check $logfile for details.' >&3" ERR
 trap '{ set +x; } 2>/dev/null; echo -n "[$(date -Is)]  "; set -x' DEBUG
 set -e
 
-# Process bams
+# Process the bam files
 
-mkdir -p $output
+for file in "$datapath"/*; do 
 
-for file in "$datapath"/*sort.bam; do 
-filename=${file##*/}
-filetag=$(basename "$filename" ".sort.bam")
+# Set variables for next task
+
+filetag=${file##*/}
+echo -e "\nMoving to sample ${filetag}" | tee /dev/fd/3 # tee displays the echo output in the terminal now that stdout is sent to a log file
+mkdir -p "$temp/$filetag"
+mkdir -p "$output/$filetag"
 
 
-echo "Moving to sample ${filetag}" | tee /dev/fd/3
+if [[ $CONDA_DEFAULT_ENV != "base" ]]; then
+conda deactivate
+fi
 
-sleep 3
 
-echo "Adding read groups" | tee /dev/fd/3
+source $conda/activate $mem2
 
-java -jar $PICARD AddOrReplaceReadGroups \
--I $file \
--O "$output/${filetag}.RG.bam" \
--RGID $RGID \
--RGLB $RGLB \
--RGPL ILLUMINA -RGPU unit1 \
--RGSM $filetag
+bwa-mem2 mem -t $threads $REF "$file/*R1*.fastq.gz" "$file/*R2*.fastq.gz" > "$temp/$filetag/$filetag.raw.bam"
 
-echo "Filtering by flags" | tee /dev/fd/3
+echo "Mapped reads" | tee /dev/fd/3
 
-samtools view -@ 32 -b -f 3 -F 2828 -q 20 "$output/${filetag}.RG.bam" -o "$output/${filetag}.filtered.bam"
+if $add_RG; then
+  java -jar "$PICARD" AddOrReplaceReadGroups \
+  -I "$temp/$filetag/$filetag.raw.bam" \
+  -O "$temp/$filetag/$filetag.RG.bam" \
+  -RGID "$RGID" \
+  -RGLB "$RGLB" \
+  -RGPL ILLUMINA -RGPU unit1 \
+  -RGSM "$filetag"
+  echo "Added read groups" | tee /dev/fd/3
+  samtools view -@ 32 -b -F 260 -q 20 "$temp/$filetag/$filetag.RG.bam" -o "$temp/$filetag/$filetag.filtered.bam"
+else
+  samtools view -@ 32 -b -F 260 -q 20 "$temp/$filetag/$filetag.raw.bam" -o "$temp/$filetag/$filetag.filtered.bam"
+fi
 
-echo "Sorting by name" | tee /dev/fd/3
+echo "Filtered" | tee /dev/fd/3
 
-samtools sort -@ 32 -n "$output/${filetag}.filtered.bam" -o "$output/${filetag}.sorted.n.bam"
+# Sort the reads by name for fixmate input
 
-echo "Adding mate score tag" | tee /dev/fd/3
+samtools sort -@ $threads -n "$temp/$filetag/$filetag.filtered.bam" -o "$temp/$filetag/$filetag.sorted.n.bam"
 
-samtools fixmate -@ 32 -m "$output/${filetag}.sorted.n.bam" "$output/${filetag}.fixmate.bam"
+# Add mate score tags for duplicate removal
 
-echo "Sorting by position" | tee /dev/fd/3
+samtools fixmate -@ $threads -m "$temp/$filetag/$filetag.sorted.n.bam" "$temp/$filetag/$filetag.fixmate.bam"
 
-samtools sort -@ 32 "$output/${filetag}.fixmate.bam" -o "$output/${filetag}.sorted.p.bam"
+# Sort the reads by position for markdup input
 
-echo "Removing duplicate reads" | tee /dev/fd/3
+samtools sort -@ $threads "$temp/$filetag/$filetag.fixmate.bam" -o "$temp/$filetag/$filetag.sorted.p.bam" 2> /dev/null
 
-samtools markdup -r -@ 32 "$output/${filetag}.sorted.p.bam" "$output/${filetag}.markdup.bam"
+# Remove duplicate reads
 
-echo "Indexing output bam" | tee /dev/fd/3
+samtools markdup -r -@ $threads "$temp/$filetag/$filetag.sorted.p.bam" "$temp/$filetag/$filetag.rmdup.bam"
 
-samtools index "$output/${filetag}.markdup.bam"
+# Index the duplicate-removed bam file
+
+samtools index "$temp/$filetag/$filetag.rmdup.bam"
+
+echo "Removed duplicates" | tee /dev/fd/3
+
+## Realign around indels
+
+conda deactivate
+source $conda/activate $GATK38
+
+gatk3 \
+-T RealignerTargetCreator \
+-R $REF \
+-o "$temp/$filetag/$filetag.intervals" \
+-I "$temp/$filetag/$filetag.rmdup.bam"
+
+gatk3 \
+-T IndelRealigner \
+-R $REF \
+-targetIntervals "$temp/$filetag/$filetag.intervals" \
+-I "$temp/$filetag/$filetag.rmdup.bam" \
+-o "$temp/$filetag/$filetag.realn.bam"
+
+echo "Realigned around indels" | tee /dev/fd/3
+
+$ATLAS BAMDiagnostics \
+--splitMergeInput \
+--bam "$temp/$filetag/$filetag.realn.bam"
+
+$ATLAS mergeOverlappingReads \
+--readGroupSettings "$temp/$filetag/$filetag.realn_splitMergeInput.txt" \
+--bam "$temp/$filetag/$filetag.realn.bam" \
+--out "$output/$filetag/$filetag"
+
+echo "Merged overlaps" | tee /dev/fd/3
 
 if $remove_temp; then
-  rm "$output/${filetag}.sorted.n.bam" "$output/${filetag}.fixmate.bam" "$output/${filetag}.sorted.p.bam" "$output/${filetag}.filtered.bam" "$output/${filetag}.RG.bam"
+rm -r $temp
 fi
 
 done
 
-echo "Finished!" | tee /dev/fd/3
-
-
-
-
-
-
-#! /bin/bash 
-
-# conda activate java8 (conda install cidermole::jdk8)
-
-java -jar /pub64/mattm/apps/java/GenomeAnalysisTK.jar \
--T RealignerTargetCreator \
--R /pub64/mattm/velocity/sequence_files/Aphantopus_hyperantus/reference/GCA_902806685_noW.fa \
--o AH-01-2016-01.intervals \
--I AH-01-2016-01.markdup.bam
-
-java -jar /pub64/mattm/apps/java/GenomeAnalysisTK.jar \
--T IndelRealigner \
--R /pub64/mattm/velocity/sequence_files/Aphantopus_hyperantus/reference/GCA_902806685_noW.fa \
--targetIntervals AH-01-2016-01.intervals \
--I AH-01-2016-01.markdup.bam \
--o AH-01-2016-01.realn.bam
-
-
-#! /bin/bash
-
-echo -e "AH-01-2016-01.realn.bam\tpaired\t151" > readgroups.txt
-
-atlas mergeOverlappingReads  --bam AH-01-2016-01.realn.bam --readGroupSettings readgroups.txt
-
-atlas estimateErrors --bam AH-01-2016-01.realn_merged.bam \
---fasta ~/velocity/sequence_files/Aphantopus_hyperantus/reference/GCA_902806685_noW.fa \
---Npsi 0 --out AH-01-2016-01.EE
+echo -e "\nAll samples processed!" | tee /dev/fd/3
