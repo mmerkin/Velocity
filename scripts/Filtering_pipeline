@@ -41,7 +41,7 @@ for file in "$datapath"/*; do
 # Set variables for next task
 
 filetag=${file##*/}
-echo -e "\nMoving to sample ${filetag}" | tee /dev/fd/3 # tee displays the echo output in the terminal now that stdout is sent to a log file
+echo -e "\nMoving to sample $filetag" | tee /dev/fd/3 # tee displays the echo output in the terminal now that stdout is sent to a log file
 mkdir -p "$temp/$filetag"
 mkdir -p "$output/$filetag"
 
@@ -53,7 +53,7 @@ fi
 
 source $conda/activate $mem2
 
-bwa-mem2 mem -t $threads $REF "$file/*R1*.fastq.gz" "$file/*R2*.fastq.gz" > "$temp/$filetag/$filetag.raw.bam"
+bwa-mem2 mem -t $threads $REF $file/*R1*.fastq.gz $file/*R2*.fastq.gz > "$temp/$filetag/$filetag.raw.bam"
 
 echo "Mapped reads" | tee /dev/fd/3
 
