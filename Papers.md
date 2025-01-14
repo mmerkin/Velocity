@@ -3,28 +3,28 @@ Here is a temporary list of papers that I found to contain useful information. I
 PMD:
 
 
-###Inferring Heterozygosity from Ancient and Low Coverage Genomes
+### Inferring Heterozygosity from Ancient and Low Coverage Genomes
 
 Wegmann paper discussing the recal model used by an old version of atlas. There is discussion of why heterozygosity is hard to infer at low coverage (may only sequence 1 of the 2 alleles and high rates of sequencing errors- these errors may then be taken as increased genetic diversity. Their simulations also showed that increasing the window size for inferring &theta; result in a higher accuracy. https://pmc.ncbi.nlm.nih.gov/articles/PMC5223511/
 
-###Patterns of damage in genomic DNA sequences from a Neandertal
+### Patterns of damage in genomic DNA sequences from a Neandertal
 
 Explanation of PMD patterns, stating that C-T mutations occur at the 5' overhanging fragment ends, with 3' G-A mutations being a product of the same concept on the reverse strand: 
 https://www.pnas.org/doi/10.1073/pnas.0704665104
 
-###Ancient DNA Damage
+### Ancient DNA Damage
 
 Brief discussion of fragmentation but also clarifies that the reason why 3' overhangs are not represented is because the library prep involves cleaving these and filling in the 5' overhangs: 
 https://pmc.ncbi.nlm.nih.gov/articles/PMC3685887/
 
-###A new model for ancient DNA decay based on paleogenomic meta-analysis
+### A new model for ancient DNA decay based on paleogenomic meta-analysis
 
 More recent paper modelling the types of DNA damage. The rate of deamination is dependent on time and temperature, but fragmentation is only predicted by rainfall and temperature (not time). Instead, there is an initial rapid increase in the amount of fragmentation, which soon stabilises in areas that allow for its preservation. Fragmentation is then due to a combination of factors, both biotic and abiotic, rather than just depurination. Additionally, fragmentation is somewhat protected around histones, especially in colder environments.
 https://pmc.ncbi.nlm.nih.gov/articles/PMC5499742/
 
 Tools:
 
-###KIN: a method to infer relatedness from low-coverage ancient DNA
+### KIN: a method to infer relatedness from low-coverage ancient DNA
 
 Self-explanatory.
 
