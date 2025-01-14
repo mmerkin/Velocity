@@ -23,11 +23,14 @@ mem2=mem2
 GATK38=GATK38
 
 
+# Determine whether variables have remained unset
+
 if [[ -z $datapath ]] || [[ -z $temp ]] || [[ -z $output ]] || [[ -z $REF ]] || [[ -z $logfile ]] || [[ -z $threads ]] || [[ -z $remove_temp ]] || [[ -z $add_RG ]]; then
 echo "At least one essential variable is missing. Make sure to define the variables before running the script" 
 exit 1
 fi
 
+# Send errors to log file
 
 exec 3>&1 1>"$logfile" 2>&1
 trap "echo 'ERROR: An error occurred during execution, check $logfile for details.' >&3" ERR
@@ -36,11 +39,12 @@ set -e
 
 # Process the bam files
 
-for file in "$datapath"/*; do 
+for file in "$datapath"/*.veladapt.clean_R1.fastq.gz; do 
 
 # Set variables for next task
 
-filetag=${file##*/}
+filetag=$(basename "$file" ".veladapt.clean_R1.fastq.gz")
+filepath="${datapath}/${filetag}"
 echo -e "\nMoving to sample $filetag" | tee /dev/fd/3 # tee displays the echo output in the terminal now that stdout is sent to a log file
 mkdir -p "$temp/$filetag"
 mkdir -p "$output/$filetag"
@@ -53,7 +57,7 @@ fi
 
 source $conda/activate $mem2
 
-bwa-mem2 mem -t $threads $REF $file/*R1*.fastq.gz $file/*R2*.fastq.gz > "$temp/$filetag/$filetag.raw.bam"
+bwa-mem2 mem -t $threads $REF ${filepath}.veladapt.clean_R1.fastq.gz ${filepath}.veladapt.clean_R2.fastq.gz > "$temp/$filetag/$filetag.raw.bam"
 
 echo "Mapped reads" | tee /dev/fd/3
 
@@ -71,7 +75,7 @@ else
   samtools view -@ 32 -b -F 260 -q 20 "$temp/$filetag/$filetag.raw.bam" -o "$temp/$filetag/$filetag.filtered.bam"
 fi
 
-echo "Filtered" | tee /dev/fd/3
+echo "Filtered reads" | tee /dev/fd/3
 
 # Sort the reads by name for fixmate input
 
@@ -115,13 +119,19 @@ gatk3 \
 
 echo "Realigned around indels" | tee /dev/fd/3
 
+$ATLAS trimSoftClips \
+--bam "$temp/$filetag/$filetag.realn.bam" \
+--out "$temp/$filetag/$filetag"
+
+echo "Trimmed soft clips" | tee /dev/fd/3
+
 $ATLAS BAMDiagnostics \
 --splitMergeInput \
---bam "$temp/$filetag/$filetag.realn.bam"
+--bam "$temp/$filetag/${filetag}_softClippedBasesRemoved.bam"
 
 $ATLAS mergeOverlappingReads \
---readGroupSettings "$temp/$filetag/$filetag.realn_splitMergeInput.txt" \
---bam "$temp/$filetag/$filetag.realn.bam" \
+--readGroupSettings "$temp/$filetag/${filetag}_softClippedBasesRemoved_splitMergeInput.txt" \
+--bam "$temp/$filetag/${filetag}_softClippedBasesRemoved.bam" \
 --out "$output/$filetag/$filetag"
 
 echo "Merged overlaps" | tee /dev/fd/3
