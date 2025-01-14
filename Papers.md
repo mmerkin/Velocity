@@ -2,7 +2,7 @@ Here is a temporary list of papers that I found to contain useful information. I
 
 PMD:
 
-Wegmann paper discussing the recal model used by an old version of atlas. There is discussion of why heterozygosity is hard to infer at low coverage (may only sequence 1 of the 2 alleles and high rates of sequencing errors- these errors may then be taken as increased genetic diversity. Their simulations also showed that increasing the window size for inferring &theta 
+Wegmann paper discussing the recal model used by an old version of atlas. There is discussion of why heterozygosity is hard to infer at low coverage (may only sequence 1 of the 2 alleles and high rates of sequencing errors- these errors may then be taken as increased genetic diversity. Their simulations also showed that increasing the window size for inferring &theta;
 
 Explanation of PMD patterns, stating that C-T mutations occur at the 5' overhanging fragment ends, with 3' G-A mutations being a product of the same concept on the reverse strand: 
 https://www.pnas.org/doi/10.1073/pnas.0704665104
