@@ -1,7 +1,6 @@
 Here is a temporary list of papers that I found to contain useful information. I will likely move this list elsewhere once I have established eg a one note
 
-PMD:
-
+# PMD and aDNA
 
 ### Inferring Heterozygosity from Ancient and Low Coverage Genomes
 
@@ -21,6 +20,17 @@ https://pmc.ncbi.nlm.nih.gov/articles/PMC3685887/
 
 More recent paper modelling the types of DNA damage. The rate of deamination is dependent on time and temperature, but fragmentation is only predicted by rainfall and temperature (not time). Instead, there is an initial rapid increase in the amount of fragmentation, which soon stabilises in areas that allow for its preservation. Fragmentation is then due to a combination of factors, both biotic and abiotic, rather than just depurination. Additionally, fragmentation is somewhat protected around histones, especially in colder environments.
 https://pmc.ncbi.nlm.nih.gov/articles/PMC5499742/
+
+### A 2-million-year-old ecosystem in Greenland uncovered by environmental DNA
+
+DNA can survive for 2 million years. https://www.nature.com/articles/s41586-022-05453-y
+
+# Adaptation in Lepiodptera
+
+### Temperature-dependent alterations in host use drive rapid range expansion in a butterfly
+
+The brown argus has expanded its range since the 1980s, which has been attributed to it switching to a more widespread larval host plant. 
+https://pubmed.ncbi.nlm.nih.gov/22628653/
 
 Tools:
 
