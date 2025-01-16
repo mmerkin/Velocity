@@ -12,9 +12,7 @@ Before any analysis can begin, the reads must be mapped and processed.
 
 [1.1. Genome preparation.](Instructions/1.1.Prepare_genome.md) The reference genome is downloaded and indexed for various tools. The W chromosome is also removed if present.
 
-[1.2. Read processing.] Adapter sequences are trimmed. Additionally, some files contain reads from multiple sequencing runs, so these are split into individual fastq files.
-
-[1.3. Read mapping.](Instructions/1.2.Map_reads.md) The reads are mapped to the reference genome and then processed. A new readgroup is added, which is required for a later step as GATK does not work on unnamed read groups. The reads are then filtered to remove unmapped and secondary reads, as well as reads with a mapping quality below 20. Duplicate reads are also removed (Figure 1); these all ensure that the coverage is not artificially inflated. 
+[1.2. Read processing.](Instructions/1.2.Process_reads.md) Adapter sequences are trimmed. Additionally, some files contain reads from multiple sequencing runs, so these are split into individual fastq files. The reads are then mapped to the reference genome, a new readgroup is added, which is required for a later step as GATK does not work on unnamed read groups; the reads are filtered to remove unmapped and secondary reads, as well as reads with a mapping quality below 20 and duplicate reads are removed (Figure 1).
 
 ![image](https://github.com/user-attachments/assets/7cb1bbc5-1084-4821-b991-ce9bcb755b81)
 
