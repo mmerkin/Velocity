@@ -45,15 +45,13 @@ Figure 3. An overview of how post-mortem deamination can affect base calls. A) a
 
 # Notes
 
-Ignore the below information, I will relocate it somewhere else later
+Maniola jurtina modern individual 17 is corrupted
 
 To do:
 
--Add log file creation steps to each script
-
--test soft clip removal in latest version of atlas
-
 -View PMD patterns with atlas viewer R tool
+
+-Automate estimate errors command 
 
 Here are two useful commands that I keep forgetting how to perform
 ```bash
@@ -61,11 +59,6 @@ Here are two useful commands that I keep forgetting how to perform
 rename s/realn_merged/final/ AH*
 # Check disk usage
 du * -sh
-```
-
-This is how to perform the GLF creation using parallel
-```bash
-parallel -j 8 /pub64/mattm/apps/atlas/build/atlas GLF --bam {} --RGInfo {.}_RGInfo.json ::: /pub64/mattm/velocity/sequence_files/Hesperia_comma/marked_duplicates/*.bam
 ```
 
 
