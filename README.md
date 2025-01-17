@@ -28,7 +28,7 @@ Atlas is then used to perform two steps. Firstly, any bases on the ends of reads
 
 ```bash
 REF: AGCTAGCATCGTGTCGCCCGTCTAGCATACGCATGATCGACTGTCAGCTAGTCAGACTAGTCGATCGATGTG
-READ:          gggGTGTAACC-GACTAGgggg
+READ:       gggGTGTAACC-GACTAGgggg
 ```
 Figure 3. Soft-clipped bases. Lower quality bases on either end of the read, due to adaptor contamination, indels etc, are trimmed. This often results in the final base being removed as n+1 sequencing cycles were often used, so the reads are 151 bases long instead of 150 as there is an extra low-quality base. Adapted from [here](https://medium.com/@lwy730050619/soft-clipping-vs-hard-clipping-in-read-alignment-bd0c96f47426)
 
