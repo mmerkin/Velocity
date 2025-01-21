@@ -25,14 +25,19 @@ https://pmc.ncbi.nlm.nih.gov/articles/PMC5499742/
 
 DNA can survive for 2 million years. https://www.nature.com/articles/s41586-022-05453-y
 
-# Adaptation in Lepiodptera
+# Genomics/adaptation in Lepiodptera
+
+### Nascent evolution of recombination rate differences as a consequence of chromosomal rearrangements
+
+Buttery chromosomes are holocentric (multiple kinetochore binding sites rather than a single centromere). Also, one crossover per generation works well with small chromosomes, but not the larger ones. 
+https://doi.org/10.1371/journal.pgen.1010717
 
 ### Temperature-dependent alterations in host use drive rapid range expansion in a butterfly
 
 The brown argus has expanded its range since the 1980s, which has been attributed to it switching to a more widespread larval host plant. 
 https://pubmed.ncbi.nlm.nih.gov/22628653/
 
-Tools:
+# Tools:
 
 ### KIN: a method to infer relatedness from low-coverage ancient DNA
 
