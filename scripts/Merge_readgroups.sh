@@ -12,6 +12,7 @@ mkdir -p $output
 
 for i in $all_files/*/*.bam; do 
 reseq=$(echo $i | awk -F'-' '{print $4 "-" $5}' | awk -F'_' '{print $1}')
+echo "Moving to: $reseq" 
 cp $i $output/${species_tag}${reseq}.bam
 done
 
