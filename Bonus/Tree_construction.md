@@ -80,7 +80,8 @@ done
 
 Then, join each of these files into a single file and run a global alignment
 
-```
-touch Leps_unibusco.msa; for i in *.fa; do cat $i >> Leps_unibusco.msa; echo "" >> Leps_unibusco.msa; done # Note that the 'echo ""' adds a new line between sequences
+```bash
+# Note that the 'echo ""' adds a new line between sequences
+touch Leps_unibusco.msa; for i in *.fa; do cat $i >> Leps_unibusco.msa; echo "" >> Leps_unibusco.msa; done 
 mafft --auto Leps_unibusco.msa >  Leps_unibusco_aln.fa
 ```
