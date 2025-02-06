@@ -18,7 +18,7 @@ output="Lepidoptera_universal_buscos.txt"
 universal_BUSCOs=()
 
 
-for species in "$datapath"/*_busco/; do
+for species in "$datapath"/*_busco; do
     # Define the path to the single_copy_busco_sequences directory
     single_copy_path="$species/run_lepidoptera_odb10/busco_sequences/single_copy_busco_sequences"
     echo "Moving to $single_copy_path"
