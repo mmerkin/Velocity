@@ -86,4 +86,5 @@ touch Leps_unibusco.msa; for i in *.fa; do cat $i >> Leps_unibusco.msa; echo "" 
 mafft --auto Leps_unibusco.msa >  Leps_unibusco_aln.fa
 ```
 
-![image](https://github.com/user-attachments/assets/2ea30209-650e-4f83-95f0-1f6c5cfe5584)
+![image](https://github.com/user-attachments/assets/2ef15d22-d274-459b-95b3-722bbecf7e9c)
+
