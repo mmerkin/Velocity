@@ -2,7 +2,7 @@
 Download the reference genomes for each species and run busco
 
 ```bash
-busco -i $REF -o $OUTPUT -m genome -l
+busco -i $REF -o $OUTPUT -m genome -l lepidoptera_odb10
 ```
 
 Then, create a list of all of the single copy buscos shared between each species:
