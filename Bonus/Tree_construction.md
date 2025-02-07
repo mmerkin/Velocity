@@ -93,6 +93,6 @@ iqtree -s 60_Leps_unibusco_aln.fa -m TESTONLY -T AUTO -ntmax 64
 iqtree -s 60_Leps_unibusco_aln.fa -m 'Q.plant+F+I+G4' -T AUTO -ntmax 64 -bb 1000
 ```
 
+![image](https://github.com/user-attachments/assets/dbba342c-c12e-45fc-9313-57cb44332f68)
 
-![image](https://github.com/user-attachments/assets/2ef15d22-d274-459b-95b3-722bbecf7e9c)
 
