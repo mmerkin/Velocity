@@ -92,6 +92,10 @@ Find an appropriate model to build the tree and the construct it with 1000 boots
 iqtree -s 60_Leps_unibusco_aln.fa -m TESTONLY -T AUTO -ntmax 64
 iqtree -s 60_Leps_unibusco_aln.fa -m 'Q.plant+F+I+G4' -T AUTO -ntmax 64 -bb 1000
 ```
+![image](https://github.com/user-attachments/assets/af03ac15-a87a-4cbb-9a3d-0ae44053efa5)
+
+
+![image](https://github.com/user-attachments/assets/ef994383-8068-4a66-8f9d-f8388dd95d57)
 
 ![image](https://github.com/user-attachments/assets/dbba342c-c12e-45fc-9313-57cb44332f68)
 
