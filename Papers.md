@@ -37,6 +37,11 @@ https://doi.org/10.1371/journal.pgen.1010717
 The brown argus has expanded its range since the 1980s, which has been attributed to it switching to a more widespread larval host plant. 
 https://pubmed.ncbi.nlm.nih.gov/22628653/
 
+### Rapid responses of British butterflies to opposing forces of climate and habitat change
+
+Most butterflies in Britain are at the northern end of their range, so mild rises in temperature should allow for range expansion. However, most species are declining. Sedentary species are declining more than mobile species. However, butterflies are habitat specialists that might be limited in where they can expand to. 
+https://www.nature.com/articles/35102054
+
 # Tools:
 
 ### KIN: a method to infer relatedness from low-coverage ancient DNA
