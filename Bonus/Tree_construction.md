@@ -95,7 +95,4 @@ iqtree -s 60_Leps_unibusco_aln.fa -m 'Q.plant+F+I+G4' -T AUTO -ntmax 64 -bb 1000
 ![image](https://github.com/user-attachments/assets/af03ac15-a87a-4cbb-9a3d-0ae44053efa5)
 
 
-![image](https://github.com/user-attachments/assets/33bac489-1c3a-461e-b0e5-7b2484152f14)
-
-
-
+![Uploading image.png…]()
