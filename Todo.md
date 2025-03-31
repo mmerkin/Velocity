@@ -4,7 +4,7 @@ Current to-do list:
 * Chromosome 1 effect?
 * Optimise filtering pipeline for G123
 * Email Barry, Brooke and museum
-* F<sub>ROH</sub>
+* F<sub>ROH</sub> (sum(ROH)/len(genome))
 * quarto with github
 * Zenodo repository
 * snakemake manager- scripts for everything eg renaming samples
