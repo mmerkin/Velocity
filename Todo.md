@@ -1,5 +1,6 @@
 Current to-do list:
 * G123 all species
+* Update prepare genome to include adding chromosome list
 * Brown argus core vs expanding fst
 * Chromosome 1 effect?
 * Optimise filtering pipeline for G123
