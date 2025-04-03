@@ -4,7 +4,7 @@ Current to-do list:
 * Brown argus core vs expanding fst
 * Chromosome 1 effect?
 * Optimise filtering pipeline for G123
-* Email Barry, Brooke and museum
+* Email Brooke and museum
 * F<sub>ROH</sub> (sum(ROH)/len(genome))
 * quarto with github
 * Zenodo repository
