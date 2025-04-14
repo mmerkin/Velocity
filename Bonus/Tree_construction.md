@@ -55,13 +55,19 @@ for file in "${universal_BUSCOs[@]}"; do
 done > $output
 ```
 
-Afterwards, concatenated each gene together from the same species into a single file 
+Afterwards, extract 500 random busco gene names:
+
+```bash
+shuf -n 500 Lepidoptera_universal_buscos.txt > 500_Lepidoptera_universal_buscos.txt
+```
+
+Then, concatenate each gene together from the same species into a single file 
 
 ```bash
 #!/bin/bash
 
 datapath="/pub64/mattm/busco"
-source="/pub64/mattm/velocity/Phylogeny/Lepidoptera_universal_buscos.txt"
+source="/pub64/mattm/velocity/Phylogeny/500_Lepidoptera_universal_buscos.txt"
 output="/pub64/mattm/velocity/Phylogeny/Concatenated_sequences"
 
 mkdir -p $output
