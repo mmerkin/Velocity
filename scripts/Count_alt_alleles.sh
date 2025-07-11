@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# Useage: bash Count_alt_alleles.sh VCF/VCF.gz OUTPUT
+# Useage: bash Count_alt_alleles.sh VCF/VCF.gz OutputFileName.tsv
 
 file=$1
 output=$2
@@ -57,8 +57,8 @@ $cmd $file | awk -v OFS="\t" -v FS="\t" '
       # sort heteozygous alleles
       if(alleles[1] > alleles[2]) {
         tmp_allele = alleles[1];
-        allleles[1] = alleles[2];
-        allleles[2] = tmp_allele;
+        alleles[1] = alleles[2];
+        alleles[2] = tmp_allele;
       }
       new_gt = alleles[1] "/" alleles[2];
       if(new_gt == "0/0") count_00[i-9]++;
