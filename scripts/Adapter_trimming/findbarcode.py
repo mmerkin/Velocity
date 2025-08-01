@@ -7,7 +7,7 @@ pattern="[A-Z|a-z]{2,4}-[0-9]{2}-[0-9]{4}-[0-9]{2,3}"
 search= re.search(pattern,name)
 name=search.group()
 barcodes=[]
-barcodefile=open("/home/florat/velocity/velocityadapters/velocity_individual-barcodes.txt", "r")
+barcodefile=open("velocity_individual-barcodes.txt", "r")
 for line in barcodefile:
     search=re.search(name, line)
     if search:
@@ -18,7 +18,7 @@ for line in barcodefile:
                 continue
 
 if len(barcodes)==0:
-    barcodefile = open("/home/florat/velocity/velocityadapters/originalname_velocity_indiv-barcode.txt","r")
+    barcodefile = open("originalname_velocity_indiv-barcode.txt","r")
     for line in barcodefile:
         search = re.search(name, line)
         if search:
