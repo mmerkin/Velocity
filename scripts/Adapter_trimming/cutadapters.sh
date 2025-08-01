@@ -22,5 +22,15 @@ else
         echo $ADAPTERS
         echo $r1
         echo $r2
-        trimmomatic PE -trimlog ${OUTFILE}.veladapt.trim.log -phred33 ${r1} ${r2} ${OUTFILE}.veladapt.clean_R1.fastq.gz ${OUTFILE}.veladapt.discard_R1.fastq.gz ${OUTFILE}.veladapt.clean_R2.fastq.gz ${OUTFILE}.veladapt.discard_R2.fastq.gz ILLUMINACLIP:/home/florat/velocity/velocityadapters/${ADAPTERS}:2:30:8:1:True LEADING:20 TRAILING:20 SLIDINGWINDOW:4:20 MINLEN:20 AVGQUAL:20
+        trimmomatic PE -trimlog ${OUTFILE}.veladapt.trim.log \
+        -phred33 ${r1} ${r2} ${OUTFILE}.veladapt.clean_R1.fastq.gz \
+        ${OUTFILE}.veladapt.discard_R1.fastq.gz \
+        ${OUTFILE}.veladapt.clean_R2.fastq.gz \
+        ${OUTFILE}.veladapt.discard_R2.fastq.gz \
+        ILLUMINACLIP:${ADAPTERS}:2:30:8:1:True \
+        LEADING:20 \
+        TRAILING:20 \
+        SLIDINGWINDOW:4:20 \
+        MINLEN:20 \
+        AVGQUAL:20
 fi
