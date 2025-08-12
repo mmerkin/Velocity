@@ -48,6 +48,16 @@ Figure 4. An overview of how post-mortem deamination can affect base calls. A) a
 
 [2.1. Effective population size.](Instructions/2.1.GONE.md) *N<sub>e</sub>*, is a measure of the number of individuals in a whole population that actually contribute to the gene pool, which is smaller than the census population size, *N<sub>c</sub>*. *N<sub>e</sub>* can be estimated genetically based on linkage disequilibrium, with WGS allowing for inferrance of the *N<sub>e</sub>* from previous generations as well based on a high number of linked markers. This does require an estimate of recombination rate, which can be calculated by assuming that there is one recombination event per chromosome, so each chromosome has a genetic distance of 50cM. The rate per chromosome is then 50 multiplied by the number of chromosomes and then divided by the total length of the genome in mb. The final recombination rate should then be divided by 2 as female butterflies do not recombine their chromosomes [ref](https://doi.org/10.1007/BF00120178). 
 
+
+## Relatedness
+
+[4.1.ROHs.] Homozygosity by descent (HBD) segments arise during inbreeding as offspring inherit the same haplotype on each chromosome from a recent shared ancestor (Figure 5)
+
+<img width="709" height="392" alt="image" src="https://github.com/user-attachments/assets/3a92e409-0a59-449d-84c3-996f5099c40c" />
+
+Figure 5. Mechanism by which inbreeding leads to the generation of ROHs. [(Shafer and Kardos, 2025)](https://pmc.ncbi.nlm.nih.gov/articles/PMC11754702/)
+
+
 # Notes
 
 Maniola jurtina modern individual 17 is corrupted
