@@ -57,23 +57,7 @@ Figure 4. An overview of how post-mortem deamination can affect base calls. A) a
 
 Figure 5. Mechanism by which inbreeding leads to the generation of ROHs. [(Shafer and Kardos, 2025)](https://pmc.ncbi.nlm.nih.gov/articles/PMC11754702/)
 
+4.4.ANGSD_thetas. ANGSD can also be used to estimate theta using the site frequency spectrum.
 
-# Notes
-
-Maniola jurtina modern individual 17 is corrupted
-
-To do:
-
--View PMD patterns with atlas viewer R tool
-
--Automate estimate errors command 
-
-Here are two useful commands that I keep forgetting how to perform
-```bash
-# Requires perl: cpan conda environment
-rename s/realn_merged/final/ AH*
-# Check disk usage
-du * -sh
-```
-
+<img width="1183" height="600" alt="image" src="https://github.com/user-attachments/assets/ef7bf9a6-09ea-44df-b102-69cb90957153" />
 
