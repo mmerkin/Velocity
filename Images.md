@@ -1,12 +1,12 @@
-![20250630_135905](https://github.com/user-attachments/assets/ca37af5b-3ca0-4ebd-acc5-8ed47fce653b)![20250810_125536](https://github.com/user-attachments/assets/3dd78f50-992c-4e7b-b0b9-10b445a695e0)## Tree
+## Tree
 
 With distribution trends:
 
-<img width="953" height="677" alt="image" src="https://github.com/user-attachments/assets/81e1484b-c827-453e-9da9-8832b9ac9fd8" />
+<img width="2245" height="1587" alt="Velocity_tree (2)" src="https://github.com/user-attachments/assets/32fac801-6f11-439c-abfe-158bafe3fff2" />
 
 Without trends:
 
-<img width="1442" height="871" alt="image" src="https://github.com/user-attachments/assets/8b09ddf1-4f81-4dbe-9b77-4140d2dca82d" />
+<img width="2245" height="1587" alt="Velocity_tree (3)" src="https://github.com/user-attachments/assets/29163dc7-3404-4ffd-b0bb-7540e6bd2659" />
 
 Note: all butterfly images taken from butterfly conservation or UK butterflies websites
 
