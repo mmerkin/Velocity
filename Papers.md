@@ -49,3 +49,123 @@ https://www.nature.com/articles/35102054
 Self-explanatory.
 
 https://genomebiology.biomedcentral.com/articles/10.1186/s13059-023-02847-7#Sec31
+
+
+# To read:
+
+## aDNA:
+
+Additional evaluations show that specific BWA-aln settings still outperform BWA-mem for ancient DNA data alignment
+
+https://onlinelibrary.wiley.com/doi/full/10.1002/ece3.8297
+
+Pre-processing of paleogenomes: mitigating reference bias and postmortem damage in ancient genome data
+
+https://genomebiology.biomedcentral.com/articles/10.1186/s13059-024-03462-w
+
+Removing reference bias and improving indel calling in ancient DNA data analysis by mapping to a sequence variation graph
+
+https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02160-7
+
+## butterfly genomics:
+
+Lepidoptera genomics based on 88 chromosomal reference sequences informs population genetic parameters for conservation
+
+https://www.biorxiv.org/content/10.1101/2023.04.14.536868v1.full#ref-34
+
+THE KINETOCHORE AND THE BIVALENTSTRUCTURE IN THE LEPIDOPTERA
+
+https://onlinelibrary.wiley.com/doi/epdf/10.1111/j.1601-5223.1953.tb03403.x
+
+Incomplete recombination suppression fuels extensive haplotype diversity in a butterfly colour pattern supergene
+
+https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3003043
+
+## ROHs:
+
+The critically endangered vaquita is not doomed to extinction by inbreeding depression
+
+https://www.science.org/doi/abs/10.1126/science.abm1742
+
+Assessing runs of Homozygosity: a comparison of SNP Array and whole genome sequence low coverage data
+
+https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-018-4489-0#Sec2
+
+Accurate runs of homozygosity estimation from low coverage genome sequences in non-model species
+
+https://www.authorea.com/users/857111/articles/1241230-accurate-runs-of-homozygosity-estimation-from-low-coverage-genome-sequences-in-non-model-species
+
+How to study runs of homozygosity using PLINK? A guide for analyzing medium density SNP data in livestock and pet species
+
+https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-020-6463-x#Sec17
+
+A hidden Markov model to estimate homozygous-by-descent probabilities associated with nested layers of ancestors
+
+https://www.sciencedirect.com/science/article/abs/pii/S0040580922000168?via=ihub#sec4
+
+The genomic footprint of whaling and isolation in fin whale populations
+
+https://www.nature.com/articles/s41467-023-40052-z#additional-information
+
+Population genomics provide insight into ancestral relationships and diversity of the feral horses of Theodore Roosevelt National Park
+
+https://onlinelibrary.wiley.com/doi/10.1002/ece3.11197
+
+Whole genome sequencing reveals high differentiation, low levels of genetic diversity and short runs of homozygosity among Swedish wels catfish
+
+https://www.nature.com/articles/s41437-021-00438-5#Sec10
+
+Whole genome sequencing revealed genetic diversity, population structure, and selective signature of Panou Tibetan sheep
+
+https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-023-09146-2#Sec2
+
+## Genetic diversity:
+
+On the concepts and measures of diversity in the genomics era
+
+https://www.sciencedirect.com/science/article/pii/S2214662823000075#sec0075
+
+Unbiased population heterozygosity estimates from genome-wide sequence data
+
+https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.13659
+
+Genomic Diversity as a Key Conservation Criterion: Proof-of-Concept From Mammalian Whole-Genome Resequencing Data
+
+https://onlinelibrary.wiley.com/doi/10.1111/eva.70000
+
+## Extra analyses:
+
+Identifying a High Fraction of the Human Genome to be under Selective Constraint Using GERP++
+
+https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1001025
+
+GOATOOLS: A Python library for Gene Ontology analyses
+
+https://www.nature.com/articles/s41598-018-28948-z
+
+GO-Compass: Visual Navigation of Multiple Lists of GO terms
+
+https://onlinelibrary.wiley.com/doi/full/10.1111/cgf.14829
+
+Exploring a Pool‐seq‐only approach for gaining population genomic insights in nonmodel species
+
+https://pmc.ncbi.nlm.nih.gov/articles/PMC6802065/
+
+Measuring Genetic Differentiation from Pool-seq Data
+
+https://pmc.ncbi.nlm.nih.gov/articles/PMC6116966/
+
+Whole-genome sequencing revealed genetic diversity and selection of Guangxi indigenous chickens (GO term stuff)
+
+https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0250392
+
+## Mark Beaumont method
+
+Estimation of Natural Selection and Allele Age from Time Series Allele Frequency Data Using a Novel Likelihood-Based Approach 
+
+https://academic.oup.com/genetics/article/216/2/463/6066175?login=false#246626942
+
+https://fy-bris.github.io/saa-mle/docs/saa-mle.html
+
+https://fy-bris.github.io/saa-mle/
+
