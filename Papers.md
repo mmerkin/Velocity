@@ -67,6 +67,16 @@ Removing reference bias and improving indel calling in ancient DNA data analysis
 
 https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02160-7
 
+Complete genomes reveal signatures of demographic and genetic declines in the woolly mammoth
+
+(origin of aln parameters)
+
+https://pmc.ncbi.nlm.nih.gov/articles/PMC4439331/#SM
+
+Improving ancient DNA read mapping against modern reference genomes
+
+https://link.springer.com/article/10.1186/1471-2164-13-178
+
 ## butterfly genomics:
 
 Lepidoptera genomics based on 88 chromosomal reference sequences informs population genetic parameters for conservation
@@ -80,6 +90,18 @@ https://onlinelibrary.wiley.com/doi/epdf/10.1111/j.1601-5223.1953.tb03403.x
 Incomplete recombination suppression fuels extensive haplotype diversity in a butterfly colour pattern supergene
 
 https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3003043
+
+The last days of Aporia crataegi (L.) in Britain: Evaluating genomic erosion in an extirpated butterfly
+
+https://onlinelibrary.wiley.com/doi/10.1111/mec.17518
+
+Whole-Genome Evaluation of Genetic Rescue: The Case of a Curiously Isolated and Endangered Butterfly
+
+https://onlinelibrary.wiley.com/doi/full/10.1111/mec.17657
+
+Predictable allele frequency changes due to habitat fragmentation in the Glanville fritillary butterfly
+
+https://pmc.ncbi.nlm.nih.gov/articles/PMC4791001/
 
 ## ROHs:
 
@@ -158,6 +180,20 @@ https://pmc.ncbi.nlm.nih.gov/articles/PMC6116966/
 Whole-genome sequencing revealed genetic diversity and selection of Guangxi indigenous chickens (GO term stuff)
 
 https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0250392
+
+## mtDNA analysis
+
+Mitochondrial DNA Consensus Calling and Quality Filtering for Constructing Ancient Human Mitogenomes: Comparison of Two Widely Applied Methods
+
+https://pmc.ncbi.nlm.nih.gov/articles/PMC9104972/#B49-ijms-23-04651
+
+Comparative mitochondrial genome analysis and phylogenetic relationship among lepidopteran species
+
+https://www.sciencedirect.com/science/article/pii/S0378111922003353?via=ihub
+
+The complete mitochondrial genome of the bag-shelter moth Ochrogaster lunifer (Lepidoptera, Notodontidae)
+
+https://link.springer.com/article/10.1186/1471-2164-9-331#Sec8
 
 ## Mark Beaumont method
 
