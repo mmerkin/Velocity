@@ -1,1 +1,41 @@
+# Plotting
 
+
+```R
+library(tidyverse)
+
+plot_G123 <- function(file_path) {
+  df <- read.table(file_path)
+  colnames(df) <- c("chr", "start", "end", "nSNPs", "ppos", "nhaps", "uhaps", "G123", "G2G1")
+  
+  df$chr <- as.factor(df$chr)
+  chr_levels <- levels(df$chr)
+  chr_levels[1] <- "Z"
+  levels(df$chr) <- c("Z", as.character(1:(length(chr_levels) - 1)))
+  
+  color_palette <- rep(c("black", "grey"), length.out = length(unique(df$chr)))
+  
+  manhattan_plot <- ggplot(df, aes(x = ppos, y = G123, color = chr)) +  
+    geom_point(alpha = 0.6, show.legend = FALSE) +
+    facet_wrap(~ chr, scales = "free_x", nrow = 1, strip.position = "bottom") +
+    theme_minimal() +
+    labs(y = "G123", color = "Chromosome") +
+    theme(
+      strip.background = element_blank(),
+      strip.text = element_text(size = 12),
+      strip.text.x = element_text(angle = 0),
+      axis.text.x = element_blank(),
+      axis.ticks.x = element_blank(),
+      axis.title.x = element_blank(),
+      panel.grid.major.x = element_blank(),
+      panel.grid.minor.x = element_blank(),
+      panel.spacing = unit(0, "lines")
+    ) +
+    scale_color_manual(values = color_palette)
+  
+  return(manhattan_plot)
+}
+
+plot_G123("J1modc_stats_100win.txt")
+
+```
