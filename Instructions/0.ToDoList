@@ -7,8 +7,13 @@ Analyses still to run:
 5) Modern mtDNA tree
 6) Modern GONE (modern filtered vcf)
 7) Both heterozygosity
-8) Both ROH
+8) Both ROH (both filtered vcf)
 9) Both mtDNA haplotype network
 10) All UK butterflies tree
-11) smc++ demography
+11) blockbuster demography (sfs)
 12) kmer based heterozygosity per species
+
+
+
+
+Ultimately, this needs modern vcf, modern angsd and mod+mus vcf, then individual angsd and mtDNA calls.
