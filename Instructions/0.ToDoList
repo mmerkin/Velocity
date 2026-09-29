@@ -14,6 +14,12 @@ Analyses still to run:
 12) kmer based heterozygosity per species
 
 
+Structure of analyses:
 
+1) Fasta genome analysis
+2) fastq and bam file manipulation: includes qc metrics e.g. qualimap and DNA damage reports
+3) vcf analysis
+4) Likelihood analysis
+5) mtDNA
 
 Ultimately, this needs modern vcf, modern angsd and mod+mus vcf, then individual angsd and mtDNA calls.
