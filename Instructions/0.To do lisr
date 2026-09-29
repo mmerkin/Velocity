@@ -1,0 +1,14 @@
+Analyses still to run:
+
+1) Modern distance trees (modern filtered vcf)
+2) Modern PCoA (angsd all modern)
+3) Modern heterozygosity (angsd single sample modern)
+4) Modern pop assign (WGSassign - angsd all modern beagle)
+5) Modern mtDNA tree
+6) Modern GONE (modern filtered vcf)
+7) Both heterozygosity
+8) Both ROH
+9) Both mtDNA haplotype network
+10) All UK butterflies tree
+11) smc++ demography
+12) kmer based heterozygosity per species
